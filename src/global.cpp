@@ -10,6 +10,12 @@ SDL_Surface *iconImage;
 SDL_Surface *optionsImage;
 
 SDL_Surface *mapImage;
+SDL_Surface *item_sprite;
+SDL_Surface *enemy_sprite;
+SDL_Surface *fire_sprite;
+SDL_Surface *player_sprite;
+
+
 SDL_Surface *iceImage;
 
 SDL_Surface *frontImage1;
@@ -147,7 +153,7 @@ void displayImage(SDL_Surface *image, int x, int y)
     SDL_BlitSurface(image, &src, screen, &dest);
 }
 
-void desenha_texto(char* texto, SDL_Surface* dst, int x, int y, SDL_Color cor)
+void desenha_texto(string texto, SDL_Surface* dst, int x, int y, SDL_Color cor)
 {
 
   SDL_Surface* src = TTF_RenderText_Blended(font, texto, cor);
@@ -191,7 +197,7 @@ void setSoundVolume(int vol)
     if(audioVol>SDL_MIX_MAXVOLUME) audioVol = SDL_MIX_MAXVOLUME;
 }
 
-void playSound(char *file, bool loop, int vol)
+void playSound(string file, bool loop, int vol)
 {
     int index;
     SDL_AudioSpec wave;

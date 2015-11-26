@@ -2,10 +2,10 @@
 #define GLOBAL_H
 
 #include <SDL.h>
-/*#include <SDL_image.h>
+#include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_thread.h>
-#include <SDL_audio.h>*/
+#include <SDL_audio.h>
 
 #include <list>
 
@@ -42,7 +42,13 @@ extern SDL_Surface *menuImage;
 extern SDL_Surface *iconImage;
 extern SDL_Surface *optionsImage;
 
-extern SDL_Surface * mapImage;
+extern SDL_Surface *mapImage;
+extern SDL_Surface *item_sprite;
+extern SDL_Surface *enemy_sprite;
+extern SDL_Surface *fire_sprite;
+extern SDL_Surface *player_sprite;
+
+
 extern SDL_Surface * iceImage;
 
 extern SDL_Surface *frontImage1;
@@ -155,11 +161,11 @@ struct audioSample {
 extern audioSample sounds[NUM_SOUNDS];
 
 void mixaudio(void *unused, Uint8 *stream, int len);
-void playSound(char *file, bool loop, int vol);
+void playSound(string file, bool loop, int vol);
 void repeatSound(bool loop);
 void setSoundVolume(int vol);
 
 void displayImage(SDL_Surface *image, int x, int y);
-void desenha_texto(char* texto, SDL_Surface* dst, int x, int y, SDL_Color cor);
+void desenha_texto(string texto, SDL_Surface* dst, int x, int y, SDL_Color cor);
 
 #endif

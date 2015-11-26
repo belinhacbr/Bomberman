@@ -29,7 +29,7 @@ int first = 128;
 int enabledsound=1;
 
 //int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-int main (){
+int main (int argc, char *argv[]){
     SDL_startup();
     loadImages();
 
@@ -208,7 +208,7 @@ int text(void * unused){
     else if(player->imuneTime && player->state!=DEAD){
         desenha_texto("Imune por", screen, 350, 15,cor);
         char * imuneTimestr = new char [32];
-        desenha_texto(itoa(player->imuneTime,imuneTimestr,10), screen, 430, 15,cor);
+        //desenha_texto(itoa(player->imuneTime,imuneTimestr,10), screen, 430, 15,cor);
     }
 }
 
@@ -365,7 +365,6 @@ void SDL_startup()
 
 void loadImages()
 {
-
     menuImage =IMG_Load("data/bgmenu.png");
     iconImage = IMG_Load("data/icon.png");
 
