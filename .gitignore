@@ -1,0 +1,16 @@
+*~
+
+/obj
+/bin
+
+/src/*
+!/src/*.cpp
+!/src/*.h
+!/src/*.txt
+
+/data/*.png
+/data/*.xcf
+!/data/about.png
+!/data/bg.png
+!/data/bgmenu.png
+!/data/options.png
