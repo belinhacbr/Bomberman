@@ -10,7 +10,7 @@
 #include <list>
 using namespace std;
 
-#include "bomb.h"
+#include "Bomb.h"
 
 #define step 8
 

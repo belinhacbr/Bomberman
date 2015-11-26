@@ -71,7 +71,7 @@ void menu(){
         if(!close){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(menuImage,0,0);
-        desenha_texto("Aperte B para selecionar", screen, 80, 390,cor);
+        drawText("Aperte B para selecionar", screen, 80, 390,cor);
         while(SDL_PollEvent(&event)){
             switch(event.type){
                 case SDL_KEYDOWN:
@@ -117,7 +117,7 @@ void menu(){
 }
 
 void game(){
-    map.loadMap("map.txt");
+    map.loadMap("src/map.txt");
     player = new Player(0,0);
     enemy = new Enemy (9,0, enemyImage1, enemyImage2, enemyImage3,1);
     enemy2 = new Enemy (7,6, enemy2Image1, enemy2Image2, enemy2Image3,2);
@@ -127,11 +127,10 @@ void game(){
         while(SDL_PollEvent(&event)) {
             switch(event.type){
                 case SDL_KEYDOWN:
-                    if(event.key.keysym.sym == SDLK_ESCAPE)
-                    {
+                    if(event.key.keysym.sym == SDLK_ESCAPE) {
                         gamePaused();
                     }
-                    else{
+                    else {
                         pressing.push_back(event.key.keysym.sym);
                     }
                     //inserir na lista event.key.keysym.sym
@@ -145,10 +144,14 @@ void game(){
                 close=true;
             }
         }
-        threadplayer = SDL_CreateThread(callcontrol, NULL);
-        threadenemy1 = SDL_CreateThread(callAction, NULL);
-        threadenemy2 = SDL_CreateThread(callAction2, NULL);
-        threadenemy3 = SDL_CreateThread(callAction3, NULL);
+        player->handleControl(pressing);
+        enemy->action();
+        enemy2->action();
+        enemy3->action();
+        //threadplayer = SDL_CreateThread(callcontrol, NULL);
+        //threadenemy1 = SDL_CreateThread(callAction, NULL);
+        //threadenemy2 = SDL_CreateThread(callAction2, NULL);
+        //threadenemy3 = SDL_CreateThread(callAction3, NULL);
         enemy->killPlayer();
         enemy2->killPlayer();
         enemy3->killPlayer();
@@ -167,22 +170,22 @@ void game(){
 
 int callcontrol(void * unused){
    player->handleControl(pressing);
-   cout<<"Player executou"<<endl;
+   //cout<<"Player executou"<<endl;
 }
 
 int callAction(void * unused){
     enemy->action();
-    cout<<"Enemy 1 executou"<<endl;
+    //cout<<"Enemy 1 executou"<<endl;
 }
 
 int callAction2(void * unused){
     enemy2->action();
-    cout<<"Enemy 2 executou"<<endl;
+    //cout<<"Enemy 2 executou"<<endl;
 }
 
 int callAction3(void * unused){
     enemy3->action();
-    cout<<"Enemy 3 executou"<<endl;
+    //cout<<"Enemy 3 executou"<<endl;
 }
 
 
@@ -190,25 +193,25 @@ int text(void * unused){
     cor ={255,255,255};
     if(first){
         if(first>96)
-            desenha_texto("Direcionais movimentam o Bomberman...", screen, 120, 20,cor);
+            drawText("Direcionais movimentam o Bomberman...", screen, 120, 20,cor);
         else if(first>64)
-            desenha_texto("aperte B para soltar Bomba...", screen, 120, 20,cor);
+            drawText("aperte B para soltar Bomba...", screen, 120, 20,cor);
         else if(first>32)
-            desenha_texto("ESC pausa o jogo.",screen, 120, 20,cor);
+            drawText("ESC pausa o jogo.",screen, 120, 20,cor);
         else
-            desenha_texto("Encontre a Chave!",screen, 200, 20,cor);
+            drawText("Encontre a Chave!",screen, 200, 20,cor);
         first--;
     }
     if(player->state==WIN){
-        desenha_texto("YOU WIN!", screen, 350, 15,cor);
+        drawText("YOU WIN!", screen, 350, 15,cor);
     }
     else if(player->state==LOSE){
-        desenha_texto("YOU LOSE!", screen, 350, 15,cor);
+        drawText("YOU LOSE!", screen, 350, 15,cor);
     }
     else if(player->imuneTime && player->state!=DEAD){
-        desenha_texto("Imune por", screen, 350, 15,cor);
+        drawText("Imune por", screen, 350, 15,cor);
         char * imuneTimestr = new char [32];
-        //desenha_texto(itoa(player->imuneTime,imuneTimestr,10), screen, 430, 15,cor);
+        drawText(to_string(player->imuneTime), screen, 430, 15,cor);
     }
 }
 
@@ -223,7 +226,7 @@ void options(){
         if(!close){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(optionsImage,0,0);
-        desenha_texto("Aperte B para selecionar", screen, 180, 390,cor);
+        drawText("Aperte B para selecionar", screen, 180, 390,cor);
         while(SDL_PollEvent(&event)){
             switch(event.type){
                 case SDL_KEYDOWN:
@@ -269,7 +272,7 @@ void about(){
     while(!done){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(aboutImage,0,0);
-        desenha_texto("Aperte B para voltar ao menu", screen, 180, 390,cor);
+        drawText("Aperte B para voltar ao menu", screen, 180, 390,cor);
         SDL_Flip(screen);
         while(SDL_PollEvent(&event)){
             switch(event.type){
@@ -295,7 +298,7 @@ void about(){
 void gamePaused(){
     cor={255,255,255};
     bool choose=false;
-    desenha_texto("GAME PAUSED", screen, 200, 10,cor);
+    drawText("GAME PAUSED", screen, 200, 10,cor);
     while(!choose){
         if(!close){
             while(SDL_PollEvent(&event)){
@@ -344,7 +347,7 @@ void SDL_startup()
         printf("Unable to set font : %s\n", SDL_GetError());
         exit(1);
     }
-    font = TTF_OpenFont("manaspc.ttf", 12);
+    font = TTF_OpenFont("data/manaspc.ttf", 12);
     /* ajusta para áudio em  16-bit stereo com 22Khz */
     //audioFmt.freq = 22050;
     audioFmt.freq = SOUND_FREQUENCY;

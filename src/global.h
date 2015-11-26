@@ -10,8 +10,8 @@
 #include <list>
 
 #include "Character.h"
-#include "bomb.h"
-#include "item.h"
+#include "Bomb.h"
+#include "Item.h"
 #include "Map.h"
 
 #define NUM_SOUNDS 1 //2
@@ -47,7 +47,6 @@ extern SDL_Surface *item_sprite;
 extern SDL_Surface *enemy_sprite;
 extern SDL_Surface *fire_sprite;
 extern SDL_Surface *player_sprite;
-
 
 extern SDL_Surface * iceImage;
 
@@ -166,6 +165,6 @@ void repeatSound(bool loop);
 void setSoundVolume(int vol);
 
 void displayImage(SDL_Surface *image, int x, int y);
-void desenha_texto(string texto, SDL_Surface* dst, int x, int y, SDL_Color cor);
+void drawText(string texto, SDL_Surface* dst, int x, int y, SDL_Color cor);
 
 #endif

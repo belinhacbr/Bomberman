@@ -153,15 +153,15 @@ void displayImage(SDL_Surface *image, int x, int y)
     SDL_BlitSurface(image, &src, screen, &dest);
 }
 
-void desenha_texto(string texto, SDL_Surface* dst, int x, int y, SDL_Color cor)
+void drawText(string texto, SDL_Surface* dst, int x, int y, SDL_Color cor)
 {
 
-  SDL_Surface* src = TTF_RenderText_Blended(font, texto, cor);
+  /*SDL_Surface* src = TTF_RenderText_Blended(font, texto, cor);
   SDL_Rect dst_rect = {x, y, 0, 0};
 
   SDL_BlitSurface(src, NULL, dst, &dst_rect);
 
-  SDL_FreeSurface(src);
+  SDL_FreeSurface(src);*/
 }
 
 
@@ -199,7 +199,7 @@ void setSoundVolume(int vol)
 
 void playSound(string file, bool loop, int vol)
 {
-    int index;
+    /*int index;
     SDL_AudioSpec wave;
     Uint8 *data;
     Uint32 dlen;
@@ -207,7 +207,7 @@ void playSound(string file, bool loop, int vol)
     repeatSound(loop);
     setSoundVolume(vol);
 
-    /* procura por um slot de som vago (ou finalizado) */
+    // procura por um slot de som vago (ou finalizado) 
     for ( index=0; index<NUM_SOUNDS; ++index ) {
         if ( sounds[index].dpos == sounds[index].dlen ) {
             break;
@@ -216,7 +216,7 @@ void playSound(string file, bool loop, int vol)
     if ( index == NUM_SOUNDS )
         return;
 
-/* carrega o arquivo de som e o converte para 16-bit stereo com 22Khz*/
+// carrega o arquivo de som e o converte para 16-bit stereo com 22Khz
     if ( SDL_LoadWAV(file, &wave, &data, &dlen) == NULL ) {
         fprintf(stderr, "Não foi possível carregar %s: %s\n", file, SDL_GetError());
         return;
@@ -229,7 +229,7 @@ void playSound(string file, bool loop, int vol)
     SDL_ConvertAudio(&cvt);
     SDL_FreeWAV(data);
 
-/* Coloca os dados de som no slot (ele começa a tocar imediatamente) */
+// Coloca os dados de som no slot (ele começa a tocar imediatamente) 
     if ( sounds[index].data ) {
         free(sounds[index].data);
     }
@@ -237,6 +237,6 @@ void playSound(string file, bool loop, int vol)
     sounds[index].data = cvt.buf;
     sounds[index].dlen = cvt.len_cvt;
     sounds[index].dpos = 0;
-    SDL_UnlockAudio();
+    SDL_UnlockAudio();*/
 }
 

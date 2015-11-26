@@ -1,5 +1,5 @@
 
-#include "bomb.h"
+#include "Bomb.h"
 #include "global.h"
 
 Bomb::Bomb(int x, int y, int range)

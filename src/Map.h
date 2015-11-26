@@ -6,8 +6,8 @@
 #include <SDL_ttf.h>
 #include <list>
 
-#include "bomb.h"
-#include "item.h"
+#include "Bomb.h"
+#include "Item.h"
 
 #define BOMB        'b'
 #define EMPTY       '_'

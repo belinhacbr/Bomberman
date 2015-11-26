@@ -239,17 +239,17 @@ void Player :: moveAnimation(){
 
     /*if(state==WIN){
         cor={255,255,255};
-        desenha_texto("YOU WIN!", screen, 300, 15,cor);
+        drawText("YOU WIN!", screen, 300, 15,cor);
     }
     else if(state==LOSE){
         cor={255,255,255};
-        desenha_texto("YOU LOSE!", screen, 300, 15,cor);
+        drawText("YOU LOSE!", screen, 300, 15,cor);
     }
     else if(imuneTime && state!=DEAD){
         cor={255,255,255};
-        desenha_texto("Imune por", screen, 300, 15,cor);
+        drawText("Imune por", screen, 300, 15,cor);
         char * imuneTimestr = new char [32];
-        desenha_texto(itoa(imuneTime,imuneTimestr,10), screen, 380, 15,cor);
+        drawText(itoa(imuneTime,imuneTimestr,10), screen, 380, 15,cor);
     }*/
 }
 

@@ -19,7 +19,9 @@ void Map::loadMap(const char *fileName) {
          set(i,j, in.get() );
       }
       in.get();
-     //in.get(); //LINUX
+      #ifdef __unix__
+        in.get();
+      #endif
     }
     in.close();
     createItemlist();
@@ -96,7 +98,7 @@ void Map::print(){
 void Map::paint(SDL_Surface * bg, SDL_Surface * ice,int live){
     displayImage(bg,0,0);
     char * livestr=new char[32];
-    desenha_texto(itoa(live,livestr,10), screen, 80, 20,cor);
+    drawText(to_string(live), screen, 80, 20,cor);
      for(int i = 0; i<height; i++){
       for(int j = 0; j<width; j++){
           if(get(i,j) == ICE){

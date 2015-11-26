@@ -1,4 +1,4 @@
-#include "item.h"
+#include "Item.h"
 #include "global.h"
 
 Item :: Item(int x,int y, int type){

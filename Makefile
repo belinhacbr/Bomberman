@@ -1,5 +1,5 @@
 bomberman:	src/main.cpp
-	g++ `sdl-config --cflags --libs` src/main.cpp -o Bomberman -lSDL -lSDL_ttf -lSDL_image -lSDL_mixer -std=c++11
+	g++ `sdl-config --cflags --libs` src/main.cpp src/global.cpp src/Bomb.cpp src/Map.cpp src/Item.cpp src/Character.cpp -o Bomberman_unix -lSDL -lSDL_ttf -lSDL_image -lSDL_mixer -std=c++0x
 
 clean:
 	rm Bomberman
