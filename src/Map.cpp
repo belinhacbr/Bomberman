@@ -35,7 +35,7 @@ void Map :: createItemlist(){
         a=rand()%MAX_X;
         b=rand()%MAX_Y;
         if(get(b,a)==ICE){
-            itens.push_back(new Item(a,b,KEY));//gera chave
+            itens.push_back(new Item(a,b,KEY, 0, 2*GRID_SIZE));//gera chave
             inserted=true;
         }
     }
@@ -43,7 +43,7 @@ void Map :: createItemlist(){
         a=rand()%MAX_X;
         b=rand()%MAX_Y;
         if(get(b,a)!=SNOWMAN){
-            itens.push_back(new Item(a,b,BOMBPLUS));
+            itens.push_back(new Item(a,b,BOMBPLUS, 0, 1*GRID_SIZE));
         }else{
             i--;
         }
@@ -52,7 +52,7 @@ void Map :: createItemlist(){
         a=rand()%MAX_X;
         b=rand()%MAX_Y;
         if(get(b,a)!=SNOWMAN){
-            itens.push_back(new Item(a,b,FIREPOWER));
+            itens.push_back(new Item(a,b,FIREPOWER, 0, 0*GRID_SIZE));
         }else{
             i--;
         }
@@ -97,12 +97,13 @@ void Map::print(){
 
 void Map::paint(SDL_Surface * bg, SDL_Surface * ice,int live){
     displayImage(bg,0,0);
+    int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     char * livestr=new char[GRID_SIZE];
     drawText(to_string(live), screen, 80, 20,color);
      for(int i = 0; i<height; i++){
       for(int j = 0; j<width; j++){
           if(get(i,j) == ICE){
-            displayImage(ice, 48+(GRID_SIZE*j), 66+(GRID_SIZE*i));
+            displaySpriteImage(item_sprite, 48+(GRID_SIZE*j), 66+(GRID_SIZE*i), 0, 3*GRID_SIZE, GRID_SIZE, colorkey);
           }
         }
      }

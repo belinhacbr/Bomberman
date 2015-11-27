@@ -38,7 +38,6 @@ class Character {
         int life;
         int colorkey;
         int sprite_size;
-        //int clear;
         Character(int x, int y, int dx0, int dy0, int sprite_size);
         bool collide(Character *c);
         bool collide(int x, int y);

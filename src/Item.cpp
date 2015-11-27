@@ -1,10 +1,13 @@
 #include "Item.h"
 #include "global.h"
 
-Item :: Item(int x,int y, int type){
+Item :: Item(int x,int y, int type, int dx0, int dy0){
     this->type=type;
     this->x=x;
     this->y=y;
+    this->dx0 = dx0;
+    this->dy0 = dy0;
+    this->colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     frame = 0;
     state = HIDE;
 }
@@ -19,9 +22,9 @@ void Item :: action(){
 void Item :: moveAnimation(){
     SDL_Surface * img1,*img2;
     int sx,sy;
-    sx = 48+x*32;
-    sy = 66+y*32;
-    if(type==BOMBPLUS){
+    sx = 48+x*GRID_SIZE;
+    sy = 66+y*GRID_SIZE;
+    /*if(type==BOMBPLUS){
         img1=iconBombImage1;
         img2=iconBombImage2;
     }else if(type==FIREPOWER){
@@ -30,23 +33,11 @@ void Item :: moveAnimation(){
     }else if(type==KEY){
         img1=iconKeyImage1;
         img2=iconKeyImage2;
-    }
+    }*/
     if(state==SHOW){
-        frame=(frame+1)%4;
-        switch(frame){
-            case 0:
-                displayImage(img1, sx, sy);
-            break;
-            case 1:
-                displayImage(img1, sx, sy);
-            break;
-            case 2:
-                displayImage(img2, sx, sy);
-            break;
-            case 3:
-                displayImage(img2, sx, sy);
-            break;
-        }
+        frame = (frame+1)%4;
+        dx0 = (frame*GRID_SIZE)%64;
+        displaySpriteImage(item_sprite, sx, sy, dx0, dy0, GRID_SIZE, colorkey);
     }
 
 }

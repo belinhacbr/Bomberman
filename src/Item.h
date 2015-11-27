@@ -16,7 +16,10 @@ class Item{
         int type;
         int frame;
         int state;
-        Item(int x,int y, int type);
+        int dx0;
+        int dy0;
+        int colorkey;
+        Item(int x,int y, int type, int dx0, int dy0);
         void moveAnimation();
         void action();
 };

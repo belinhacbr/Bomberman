@@ -122,10 +122,10 @@ void menu(){
 
 void game(){
     map.loadMap("src/map.txt");
-    player = new Player(0,0, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
-    enemy = new Enemy (9,0,1, 0, 0, ENEMY_SPRITE_SIZE);
-    enemy2 = new Enemy (7,6,2, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
-    enemy3 = new Enemy (5,10,3, 0, ENEMY_SPRITE_SIZE*2, ENEMY_SPRITE_SIZE);
+    player = new Player(0, 0, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
+    enemy = new Enemy(9, 0, 1, 0, 0, ENEMY_SPRITE_SIZE);
+    enemy2 = new Enemy(7, 6, 2, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
+    enemy3 = new Enemy(5, 10, 3, 0, ENEMY_SPRITE_SIZE*2, ENEMY_SPRITE_SIZE);
 
     while(!close) {
         while(SDL_PollEvent(&event)) {
@@ -378,15 +378,17 @@ void loadImages()
     //player_sprite;
     SDL_Surface * temp;
 
+    menuImage =IMG_Load("data/bgmenu.png");
+    iconImage = IMG_Load("data/icon.png");
+    mapImage = IMG_Load("data/bg.png");
+
     temp  = SDL_LoadBMP("data/enemies_sprite.bmp");
     enemy_sprite = SDL_DisplayFormat(temp);
     SDL_FreeSurface(temp);
 
-    menuImage =IMG_Load("data/bgmenu.png");
-    iconImage = IMG_Load("data/icon.png");
-
-    mapImage = IMG_Load("data/bg.png");
-    iceImage = IMG_Load("data/neve.png");
+    temp  = SDL_LoadBMP("data/item_sprite.bmp");
+    item_sprite = SDL_DisplayFormat(temp);
+    SDL_FreeSurface(temp);
 
     frontImage1 = IMG_Load("data/Down.png");
     frontImage2 = IMG_Load("data/DownEsq.png");
@@ -415,10 +417,6 @@ void loadImages()
     loseImage1 = IMG_Load("data/lose1.png");
     loseImage2 = IMG_Load("data/lose2.png");
     loseImage3 = IMG_Load("data/lose3.png");
-
-    bombImage1 = IMG_Load("data/bomb1.png");
-    bombImage2 = IMG_Load("data/bomb2.png");
-    bombImage3 = IMG_Load("data/bomb3.png");
 
     fireCenterImage1 = IMG_Load("data/firec1.png");
     fireCenterImage2 = IMG_Load("data/firec2.png");
@@ -465,6 +463,8 @@ void loadImages()
     fireDownMiddleImage3 = IMG_Load("data/firem3.png");
     fireDownMiddleImage4 = IMG_Load("data/firem4.png");
 
+    iceImage = IMG_Load("data/neve.png");
+
     iconBombImage1 = IMG_Load("data/itembomb1.png");
     iconBombImage2 = IMG_Load("data/itembomb2.png");
 
@@ -478,12 +478,14 @@ void loadImages()
 void releaseImages()
 {
     SDL_FreeSurface(enemy_sprite);
-
+    SDL_FreeSurface(item_sprite);
+    
     SDL_FreeSurface(menuImage);
     SDL_FreeSurface(iconImage);
+    SDL_FreeSurface(mapImage);
 
-    SDL_FreeSurface(mapImage);//free memory
-    SDL_FreeSurface(iceImage);//free memory
+
+    SDL_FreeSurface(iceImage);
 
     SDL_FreeSurface(frontImage1);
     SDL_FreeSurface(frontImage2);
