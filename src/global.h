@@ -53,8 +53,6 @@ extern SDL_Surface *enemy_sprite;
 extern SDL_Surface *fire_sprite;
 extern SDL_Surface *player_sprite;
 
-extern SDL_Surface * iceImage;
-
 extern SDL_Surface *frontImage1;
 extern SDL_Surface *frontImage2;
 extern SDL_Surface *frontImage3;
@@ -82,10 +80,6 @@ extern SDL_Surface *winImage3;
 extern SDL_Surface *loseImage1;
 extern SDL_Surface *loseImage2;
 extern SDL_Surface *loseImage3;
-
-extern SDL_Surface *bombImage1;
-extern SDL_Surface *bombImage2;
-extern SDL_Surface *bombImage3;
 
 extern SDL_Surface *fireCenterImage1;
 extern SDL_Surface *fireCenterImage2;
@@ -131,15 +125,6 @@ extern SDL_Surface *fireDownMiddleImage1;
 extern SDL_Surface *fireDownMiddleImage2;
 extern SDL_Surface *fireDownMiddleImage3;
 extern SDL_Surface *fireDownMiddleImage4;
-
-extern SDL_Surface *iconBombImage1;
-extern SDL_Surface *iconBombImage2;
-
-extern SDL_Surface *iconFireImage1;
-extern SDL_Surface *iconFireImage2;
-
-extern SDL_Surface *iconKeyImage1;
-extern SDL_Surface *iconKeyImage2;
 
 extern TTF_Font *font;
 extern SDL_AudioSpec audioFmt;

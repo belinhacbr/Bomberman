@@ -160,7 +160,7 @@ void game(){
         enemy2->killPlayer();
         enemy3->killPlayer();
         map.action();
-        map.paint(mapImage,iceImage, player->life);
+        map.paint(player->life);
         map.moveAnimation();
         enemy->moveAnimation();
         enemy2->moveAnimation();
@@ -463,29 +463,16 @@ void loadImages()
     fireDownMiddleImage3 = IMG_Load("data/firem3.png");
     fireDownMiddleImage4 = IMG_Load("data/firem4.png");
 
-    iceImage = IMG_Load("data/neve.png");
-
-    iconBombImage1 = IMG_Load("data/itembomb1.png");
-    iconBombImage2 = IMG_Load("data/itembomb2.png");
-
-    iconFireImage1 = IMG_Load("data/itemfire1.png");
-    iconFireImage2 = IMG_Load("data/itemfire2.png");
-
-    iconKeyImage1 = IMG_Load("data/key.png");
-    iconKeyImage2 = IMG_Load("data/key2.png");
 }
 
 void releaseImages()
 {
     SDL_FreeSurface(enemy_sprite);
     SDL_FreeSurface(item_sprite);
-    
+
     SDL_FreeSurface(menuImage);
     SDL_FreeSurface(iconImage);
     SDL_FreeSurface(mapImage);
-
-
-    SDL_FreeSurface(iceImage);
 
     SDL_FreeSurface(frontImage1);
     SDL_FreeSurface(frontImage2);

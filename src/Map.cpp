@@ -95,11 +95,11 @@ void Map::print(){
    }
 }
 
-void Map::paint(SDL_Surface * bg, SDL_Surface * ice,int live){
-    displayImage(bg,0,0);
+void Map::paint(int lives){
+    displayImage(mapImage,0,0);
     int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     char * livestr=new char[GRID_SIZE];
-    drawText(to_string(live), screen, 80, 20,color);
+    drawText(to_string(lives), screen, 80, 20,color);
      for(int i = 0; i<height; i++){
       for(int j = 0; j<width; j++){
           if(get(i,j) == ICE){

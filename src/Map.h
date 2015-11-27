@@ -31,7 +31,7 @@ class Map {
         int get(int lin, int col);
         void set(int lin, int col, int val);
         void print();
-        void paint(SDL_Surface * bg, SDL_Surface * ice, int live);
+        void paint(int lives);
         void moveAnimation();
         void action();
         bool passThrough(int lin,int col);

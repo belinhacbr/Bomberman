@@ -24,16 +24,6 @@ void Item :: moveAnimation(){
     int sx,sy;
     sx = 48+x*GRID_SIZE;
     sy = 66+y*GRID_SIZE;
-    /*if(type==BOMBPLUS){
-        img1=iconBombImage1;
-        img2=iconBombImage2;
-    }else if(type==FIREPOWER){
-        img1=iconFireImage1;
-        img2=iconFireImage2;
-    }else if(type==KEY){
-        img1=iconKeyImage1;
-        img2=iconKeyImage2;
-    }*/
     if(state==SHOW){
         frame = (frame+1)%4;
         dx0 = (frame*GRID_SIZE)%64;

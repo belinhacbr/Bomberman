@@ -88,16 +88,6 @@ SDL_Surface *fireDownMiddleImage2;
 SDL_Surface *fireDownMiddleImage3;
 SDL_Surface *fireDownMiddleImage4;
 
-SDL_Surface *iceImage;
-SDL_Surface *iconBombImage1;
-SDL_Surface *iconBombImage2;
-
-SDL_Surface *iconFireImage1;
-SDL_Surface *iconFireImage2;
-
-SDL_Surface *iconKeyImage1;
-SDL_Surface *iconKeyImage2;
-
 TTF_Font *font;
 SDL_AudioSpec audioFmt;
 struct audioSample sounds[NUM_SOUNDS];
