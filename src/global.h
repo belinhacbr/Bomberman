@@ -18,6 +18,11 @@
 #define SOUND_FREQUENCY 45000
 
 #define delay       70
+#define ENEMY_SPRITE_SIZE  32
+#define GRID_SIZE 32
+#define MAX_X 13
+#define MAX_Y 11
+
 
 using namespace std;
 
@@ -34,7 +39,7 @@ extern Enemy *enemy2;
 extern Enemy *enemy3;
 
 extern Map map;
-extern SDL_Color cor;
+extern SDL_Color color;
 extern SDL_Surface *screen;
 extern SDL_Event event;
 
@@ -77,18 +82,6 @@ extern SDL_Surface *winImage3;
 extern SDL_Surface *loseImage1;
 extern SDL_Surface *loseImage2;
 extern SDL_Surface *loseImage3;
-
-extern SDL_Surface *enemyImage1;
-extern SDL_Surface *enemyImage2;
-extern SDL_Surface *enemyImage3;
-
-extern SDL_Surface *enemy2Image1;
-extern SDL_Surface *enemy2Image2;
-extern SDL_Surface *enemy2Image3;
-
-extern SDL_Surface *enemy3Image1;
-extern SDL_Surface *enemy3Image2;
-extern SDL_Surface *enemy3Image3;
 
 extern SDL_Surface *bombImage1;
 extern SDL_Surface *bombImage2;
@@ -165,6 +158,7 @@ void repeatSound(bool loop);
 void setSoundVolume(int vol);
 
 void displayImage(SDL_Surface *image, int x, int y);
-void drawText(string texto, SDL_Surface* dst, int x, int y, SDL_Color cor);
+void displaySpriteImage(SDL_Surface *sprite, int x, int y, int dx, int dy, int sprite_size, int colorkey);
+void drawText(string texto, SDL_Surface* dst, int x, int y, SDL_Color color);
 
 #endif

@@ -28,8 +28,12 @@ list<int> pressing;
 int first = 128;
 int enabledsound=1;
 
-//int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+#if defined(_WIN32) || defined(_WIN64)
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+#endif
+#ifdef __unix__
 int main (int argc, char *argv[]){
+#endif
     SDL_startup();
     loadImages();
 
@@ -65,13 +69,13 @@ void menu(){
     int sx,sy;
     sx=80;
     sy=115;
-    cor = {0, 0, 0};
+    color = {0, 0, 0};
     bool choose = false;
     while(!choose){
         if(!close){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(menuImage,0,0);
-        drawText("Aperte B para selecionar", screen, 80, 390,cor);
+        drawText("Aperte B para selecionar", screen, 80, 390,color);
         while(SDL_PollEvent(&event)){
             switch(event.type){
                 case SDL_KEYDOWN:
@@ -118,10 +122,10 @@ void menu(){
 
 void game(){
     map.loadMap("src/map.txt");
-    player = new Player(0,0);
-    enemy = new Enemy (9,0, enemyImage1, enemyImage2, enemyImage3,1);
-    enemy2 = new Enemy (7,6, enemy2Image1, enemy2Image2, enemy2Image3,2);
-    enemy3 = new Enemy (5,10, enemy3Image1, enemy3Image2, enemy3Image3,3);
+    player = new Player(0,0, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
+    enemy = new Enemy (9,0,1, 0, 0, ENEMY_SPRITE_SIZE);
+    enemy2 = new Enemy (7,6,2, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
+    enemy3 = new Enemy (5,10,3, 0, ENEMY_SPRITE_SIZE*2, ENEMY_SPRITE_SIZE);
 
     while(!close) {
         while(SDL_PollEvent(&event)) {
@@ -190,28 +194,28 @@ int callAction3(void * unused){
 
 
 int text(void * unused){
-    cor ={255,255,255};
+    color ={255,255,255};
     if(first){
         if(first>96)
-            drawText("Direcionais movimentam o Bomberman...", screen, 120, 20,cor);
+            drawText("Direcionais movimentam o Bomberman...", screen, 120, 20,color);
         else if(first>64)
-            drawText("aperte B para soltar Bomba...", screen, 120, 20,cor);
+            drawText("aperte B para soltar Bomba...", screen, 120, 20,color);
         else if(first>32)
-            drawText("ESC pausa o jogo.",screen, 120, 20,cor);
+            drawText("ESC pausa o jogo.",screen, 120, 20,color);
         else
-            drawText("Encontre a Chave!",screen, 200, 20,cor);
+            drawText("Encontre a Chave!",screen, 200, 20,color);
         first--;
     }
     if(player->state==WIN){
-        drawText("YOU WIN!", screen, 350, 15,cor);
+        drawText("YOU WIN!", screen, 350, 15,color);
     }
     else if(player->state==LOSE){
-        drawText("YOU LOSE!", screen, 350, 15,cor);
+        drawText("YOU LOSE!", screen, 350, 15,color);
     }
     else if(player->imuneTime && player->state!=DEAD){
-        drawText("Imune por", screen, 350, 15,cor);
+        drawText("Imune por", screen, 350, 15,color);
         char * imuneTimestr = new char [32];
-        drawText(to_string(player->imuneTime), screen, 430, 15,cor);
+        drawText(to_string(player->imuneTime), screen, 430, 15,color);
     }
 }
 
@@ -219,14 +223,14 @@ void options(){
     int sx,sy;
     sx=180;
     sy=190;
-    cor = {255, 255, 255};
+    color = {255, 255, 255};
     bool choose = false;
     SDL_Surface *optionsImage = IMG_Load("data/options.png");
     while(!choose){
         if(!close){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(optionsImage,0,0);
-        drawText("Aperte B para selecionar", screen, 180, 390,cor);
+        drawText("Aperte B para selecionar", screen, 180, 390,color);
         while(SDL_PollEvent(&event)){
             switch(event.type){
                 case SDL_KEYDOWN:
@@ -267,12 +271,12 @@ void options(){
 
 void about(){
     bool done=false;
-    cor = {255, 255, 255};
+    color = {255, 255, 255};
     SDL_Surface *aboutImage = IMG_Load("data/about.png");
     while(!done){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(aboutImage,0,0);
-        drawText("Aperte B para voltar ao menu", screen, 180, 390,cor);
+        drawText("Aperte B para voltar ao menu", screen, 180, 390,color);
         SDL_Flip(screen);
         while(SDL_PollEvent(&event)){
             switch(event.type){
@@ -296,9 +300,9 @@ void about(){
 }
 
 void gamePaused(){
-    cor={255,255,255};
+    color={255,255,255};
     bool choose=false;
-    drawText("GAME PAUSED", screen, 200, 10,cor);
+    drawText("GAME PAUSED", screen, 200, 10,color);
     while(!choose){
         if(!close){
             while(SDL_PollEvent(&event)){
@@ -368,6 +372,16 @@ void SDL_startup()
 
 void loadImages()
 {
+    //item_sprite;
+    //enemy_sprite;
+    //fire_sprite;
+    //player_sprite;
+    SDL_Surface * temp;
+
+    temp  = SDL_LoadBMP("data/enemies_sprite.bmp");
+    enemy_sprite = SDL_DisplayFormat(temp);
+    SDL_FreeSurface(temp);
+
     menuImage =IMG_Load("data/bgmenu.png");
     iconImage = IMG_Load("data/icon.png");
 
@@ -401,18 +415,6 @@ void loadImages()
     loseImage1 = IMG_Load("data/lose1.png");
     loseImage2 = IMG_Load("data/lose2.png");
     loseImage3 = IMG_Load("data/lose3.png");
-
-    enemyImage1 = IMG_Load("data/penguin.png");
-    enemyImage2 = IMG_Load("data/penguin0.png");
-    enemyImage3 = IMG_Load("data/penguin1.png");
-
-    enemy2Image1 = IMG_Load("data/tiny.png");
-    enemy2Image2 = IMG_Load("data/tiny0.png");
-    enemy2Image3 = IMG_Load("data/tiny1.png");
-
-    enemy3Image1 = IMG_Load("data/jelly.png");
-    enemy3Image2 = IMG_Load("data/jelly0.png");
-    enemy3Image3 = IMG_Load("data/jelly1.png");
 
     bombImage1 = IMG_Load("data/bomb1.png");
     bombImage2 = IMG_Load("data/bomb2.png");
@@ -475,6 +477,8 @@ void loadImages()
 
 void releaseImages()
 {
+    SDL_FreeSurface(enemy_sprite);
+
     SDL_FreeSurface(menuImage);
     SDL_FreeSurface(iconImage);
 
@@ -496,18 +500,6 @@ void releaseImages()
     SDL_FreeSurface(leftImage1);
     SDL_FreeSurface(leftImage2);
     SDL_FreeSurface(leftImage3);
-
-    SDL_FreeSurface(enemyImage1);
-    SDL_FreeSurface(enemyImage2);
-    SDL_FreeSurface(enemyImage3);
-
-    SDL_FreeSurface(enemy2Image1);
-    SDL_FreeSurface(enemy2Image2);
-    SDL_FreeSurface(enemy2Image3);
-
-    SDL_FreeSurface(enemy3Image1);
-    SDL_FreeSurface(enemy3Image2);
-    SDL_FreeSurface(enemy3Image3);
 
     SDL_FreeSurface(fireCenterImage1);
     SDL_FreeSurface(fireCenterImage2);

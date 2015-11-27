@@ -7,6 +7,8 @@ Bomb::Bomb(int x, int y, int range)
     this->range=range;
     this->x = x;
     this->y = y;
+    this->colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+    this->sprite_size = ENEMY_SPRITE_SIZE;
     state=SET;
     frame=0;
     timer=32;
@@ -23,7 +25,7 @@ void Bomb :: action(){
         }
     }else if(state==EXPLODE){
         for(int i = 0; i<=range; i++){
-            if(x+i<13){
+            if(x+i<MAX_X){
                 if(map.get(y,x+i)!=SNOWMAN && right){
                     if(map.get(y,x+i)==ICE)
                         right=0;
@@ -31,7 +33,7 @@ void Bomb :: action(){
                 }else{
                     right=0;
                 }
-            }if(y+i<11){
+            }if(y+i<MAX_Y){
                 if(map.get(y+i,x)!=SNOWMAN && up){
                     if(map.get(y+i,x)==ICE)
                         up=0;
@@ -62,10 +64,10 @@ void Bomb :: action(){
        }
     }else if(state==ASH){
         for(int i = 0; i<=range; i++){
-            if(x+i<13){
+            if(x+i<MAX_X){
                 if(map.get(y,x+i)==FIRE)
                     map.set(y,x+i,EMPTY);
-            }if(y+i<11){
+            }if(y+i<MAX_Y){
                 if(map.get(y+i,x)==FIRE)
                     map.set(y+i,x,EMPTY);
             }if(x-i>=0){
@@ -82,21 +84,21 @@ void Bomb :: action(){
 
 void Bomb :: moveAnimation(){
     int sx, sy;
+    int dx0 = 0, dy0 = 96;
     if(state==SET){
-        sx = 48+x*32;
-        sy = 66+y*32;
+        sx = 48+x*GRID_SIZE;
+        sy = 66+y*GRID_SIZE;
     }else if(state==EXPLODE){
-        sx = 48+x*32;
-        sy = 66+y*32;
+        sx = 48+x*GRID_SIZE;
+        sy = 66+y*GRID_SIZE;
     }
-
     switch(state){
         case SET:
             //action();
             frame++;
-            if(frame==5){
-                frame=0;
-            }
+            frame = frame%6;
+            dx0 = frame/2*sprite_size;
+            displaySpriteImage(enemy_sprite, sx, sy, dx0, dy0, sprite_size, colorkey);
             break;
         case EXPLODE:
             frame++;
@@ -107,9 +109,9 @@ void Bomb :: moveAnimation(){
     }
     switch(frame){
         case 0:
-            if(state==SET)
-                displayImage(bombImage2, sx, sy);
-            else if(state==EXPLODE){
+            if(state==SET){
+                //displaySpriteImage(enemy_sprite, sx, sy, dx0*sprite_size, dy0, sprite_size, colorkey);
+            }else if(state==EXPLODE){
                 displayImage(fireCenterImage1, sx, sy);
                 if(x-range>=0 && map.get(y,x-range)==FIRE)
                     displayImage(fireLeftImage1, sx-range*32, sy);
@@ -134,9 +136,9 @@ void Bomb :: moveAnimation(){
             }
             break;
         case 1:
-            if(state==SET)
-                displayImage(bombImage2, sx, sy);
-            else if(state==EXPLODE){
+            if(state==SET){
+                //displaySpriteImage(enemy_sprite, sx, sy, dx0*sprite_size, dy0, sprite_size, colorkey);
+            }else if(state==EXPLODE){
                 displayImage(fireCenterImage2, sx, sy);
                 if(x-range>=0 && map.get(y,x-range)==FIRE)
                     displayImage(fireLeftImage2, sx-range*32, sy);
@@ -161,9 +163,9 @@ void Bomb :: moveAnimation(){
             }
             break;
         case 2:
-            if(state==SET)
-                displayImage(bombImage1, sx, sy);
-            else if(state==EXPLODE){
+            if(state==SET){
+                //displaySpriteImage(enemy_sprite, sx, sy, dx0*sprite_size, dy0, sprite_size, colorkey);
+            }else if(state==EXPLODE){
                 displayImage(fireCenterImage3, sx, sy);
                 if(x-range>=0 && map.get(y,x-range)==FIRE)
                     displayImage(fireLeftImage3, sx-range*32, sy);
@@ -188,9 +190,9 @@ void Bomb :: moveAnimation(){
             }
             break;
         case 3:
-            if(state==SET)
-                displayImage(bombImage1, sx, sy);
-            else if(state==EXPLODE){
+            if(state==SET){
+                //displaySpriteImage(enemy_sprite, sx, sy, dx0*sprite_size, dy0, sprite_size, colorkey);
+            }else if(state==EXPLODE){
                displayImage(fireCenterImage4, sx, sy);
                 if(x-range>=0 && map.get(y,x-range)==FIRE)
                     displayImage(fireLeftImage4, sx-range*32, sy);
@@ -215,9 +217,9 @@ void Bomb :: moveAnimation(){
             }
             break;
         case 4:
-            if(state==SET)
-                displayImage(bombImage3, sx, sy);
-            else if(state==EXPLODE){
+            if(state==SET){
+                //displaySpriteImage(enemy_sprite, sx, sy, dx0*sprite_size, dy0, sprite_size, colorkey);
+            }else if(state==EXPLODE){
                displayImage(fireCenterImage4, sx, sy);
                 if(x-range>=0 && map.get(y,x-range)==FIRE)
                     displayImage(fireLeftImage4, sx-range*32, sy);
@@ -242,9 +244,9 @@ void Bomb :: moveAnimation(){
             }
             break;
         case 5:
-            if(state==SET)
-                displayImage(bombImage3, sx, sy);
-            else if(state==EXPLODE){
+            if(state==SET){
+                //displaySpriteImage(enemy_sprite, sx, sy, dx0*sprite_size, dy0, sprite_size, colorkey);
+            }else if(state==EXPLODE){
                 displayImage(fireCenterImage3, sx, sy);
                 if(x-range>=0 && map.get(y,x-range)==FIRE)
                     displayImage(fireLeftImage3, sx-range*32, sy);

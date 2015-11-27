@@ -1,9 +1,13 @@
 #include "Character.h"
 #include "global.h"
 
-Character :: Character(int x, int y){
+Character :: Character(int x, int y, int dx0, int dy0, int sprite_size){
     this->x=x;
     this->y=y;
+    this->dx0 = dx0;
+    this->dy0 = dy0;
+    this->sprite_size = 32;
+    this->colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     frame=0;
     state=0;
     life=1;
@@ -17,7 +21,7 @@ bool Character :: collide(int x, int y){
     return (x == this->x && y == this->y);
 }
 
-Player :: Player(int x, int y) : Character(x,y){
+Player :: Player(int x, int y, int dx0, int dy0, int sprite_size) : Character(x, y, dx0, dy0, sprite_size){
     bombNumber=1;
     bombRange=1;
     life=3;
@@ -31,14 +35,14 @@ void Player :: handleControl (list<int> &pressing) {
         for(list<int>::iterator it=pressing.begin();it!=pressing.end();it++){
             switch(*(it)){
             case SDLK_DOWN:
-                if((y+1)<11 && map.passThrough(y+1,x)){
+                if((y+1)<MAX_Y && map.passThrough(y+1,x)){
                         if(state==0){
                             state = FRONT;
                         }
                     }
                 break;
             case SDLK_RIGHT:
-                if((x+1)<13 && map.passThrough(y,x+1)){
+                if((x+1)<MAX_X && map.passThrough(y,x+1)){
                         if(state==0){
                             state = RIGHT;
                         }
@@ -101,14 +105,12 @@ void Player :: handleControl (list<int> &pressing) {
 
 void Player :: die(){
     if(imuneTime==0){
-        //cout<<"arghh!"<<endl;
         state=DEAD;
         imuneTime = IMUNE_TIME;
         deadTime = DEAD_TIME;
         life--;
         if(life==0){
             state=LOSE;
-            //cout<<"GAME OVER!"<<endl;
         }
     }
 }
@@ -119,12 +121,12 @@ void Player :: moveAnimation(){
     switch(state){
         case STOP:
             img2 = frontImage1;
-            sx += x*32;
-            sy += y*32;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE;
             break;
         case FRONT: //Front
-            sx += x*32;
-            sy += y*32 + (frame+1)*step;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE + (frame+1)*step;
             img1 = frontImage1;
             img2 = frontImage2;
             img3 = frontImage3;
@@ -136,8 +138,8 @@ void Player :: moveAnimation(){
             }
             break;
         case LEFT:
-            sx += x*32 - (frame+1)*step;
-            sy += y*32;
+            sx += x*GRID_SIZE - (frame+1)*step;
+            sy += y*GRID_SIZE;
             img1 = leftImage1;
             img2 = leftImage2;
             img3 = leftImage3;
@@ -150,8 +152,8 @@ void Player :: moveAnimation(){
             }
             break;
         case BACK:
-            sx += x*32;
-            sy += y*32 - (frame+1)*step;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE - (frame+1)*step;
             img1 = backImage1;
             img2 = backImage2;
             img3 = backImage3;
@@ -163,8 +165,8 @@ void Player :: moveAnimation(){
             }
             break;
         case RIGHT:
-            sx += x*32 + (frame+1)*step;
-            sy += y*32 ;
+            sx += x*GRID_SIZE + (frame+1)*step;
+            sy += y*GRID_SIZE ;
             img1 = rightImage1;
             img2 = rightImage2;
             img3 = rightImage3;
@@ -176,8 +178,8 @@ void Player :: moveAnimation(){
             }
             break;
         case DEAD:
-            sx += x*32;
-            sy += y*32;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE;
             img1=deadImage2;
             img2=deadImage1;
             img3=deadImage3;
@@ -191,8 +193,8 @@ void Player :: moveAnimation(){
             }
             break;
         case WIN:
-            sx += x*32;
-            sy += y*32;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE;
             img1=winImage1;
             img2=winImage2;
             img3=winImage3;
@@ -206,8 +208,8 @@ void Player :: moveAnimation(){
             }
             break;
         case LOSE:
-            sx += x*32;
-            sy += y*32;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE;
             img1=loseImage1;
             img2=loseImage2;
             img3=loseImage3;
@@ -238,27 +240,24 @@ void Player :: moveAnimation(){
     }
 
     /*if(state==WIN){
-        cor={255,255,255};
-        drawText("YOU WIN!", screen, 300, 15,cor);
+        color={255,255,255};
+        drawText("YOU WIN!", screen, 300, 15,color);
     }
     else if(state==LOSE){
-        cor={255,255,255};
-        drawText("YOU LOSE!", screen, 300, 15,cor);
+        color={255,255,255};
+        drawText("YOU LOSE!", screen, 300, 15,color);
     }
     else if(imuneTime && state!=DEAD){
-        cor={255,255,255};
-        drawText("Imune por", screen, 300, 15,cor);
+        color={255,255,255};
+        drawText("Imune por", screen, 300, 15,color);
         char * imuneTimestr = new char [32];
-        drawText(itoa(imuneTime,imuneTimestr,10), screen, 380, 15,cor);
+        drawText(itoa(imuneTime,imuneTimestr,10), screen, 380, 15,color);
     }*/
 }
 
-Enemy :: Enemy(int x, int y, SDL_Surface * img1, SDL_Surface *img2, SDL_Surface * img3, int routetype) : Character(x,y){
-    this->img1=img1;
-    this->img2=img2;
-    this->img3=img3;
+Enemy :: Enemy(int x, int y, int routetype, int dx0=0, int dy0=0, int sprite_size=32) : Character(x, y, dx0, dy0, sprite_size){
     this->routetype=routetype;
-    route=0;
+    this->route=0;
 }
 
 void Enemy :: action (){
@@ -266,8 +265,8 @@ void Enemy :: action (){
         switch(routetype){
             case 1:
                 if(route){
-                    if((y+1)<11 && map.passThrough(y+1,x) && map.get(y+1,x)!=FIRE) state = FRONT;
-                    else if((x+1)<13 && map.passThrough(y,x+1) && map.get(y,x+1)!=FIRE) state = RIGHT;
+                    if((y+1)<MAX_Y && map.passThrough(y+1,x) && map.get(y+1,x)!=FIRE) state = FRONT;
+                    else if((x+1)<MAX_X && map.passThrough(y,x+1) && map.get(y,x+1)!=FIRE) state = RIGHT;
                     else route = 0;
                 }
                 else{
@@ -278,8 +277,8 @@ void Enemy :: action (){
             break;
             case 2:
                 if(route){
-                    if((y+1)<11 && map.passThrough(y+1,x) && map.get(y+1,x)!=FIRE) state = FRONT;
-                    else if((x+1)<13 && map.passThrough(y,x+1) && map.get(y,x+1)!=FIRE) state = RIGHT;
+                    if((y+1)<MAX_Y && map.passThrough(y+1,x) && map.get(y+1,x)!=FIRE) state = FRONT;
+                    else if((x+1)<MAX_X && map.passThrough(y,x+1) && map.get(y,x+1)!=FIRE) state = RIGHT;
                     else route = 0;
                 }
                 else{
@@ -291,8 +290,8 @@ void Enemy :: action (){
             break;
             case 3:
                  if(route){
-                    if((y+1)<11 && map.passThrough(y+1,x) && map.get(y+1,x)!=FIRE) state = FRONT;
-                    else if((x+1)<13 && map.passThrough(y,x+1) && map.get(y,x+1)!=FIRE) state = RIGHT;
+                    if((y+1)<MAX_Y && map.passThrough(y+1,x) && map.get(y+1,x)!=FIRE) state = FRONT;
+                    else if((x+1)<MAX_X && map.passThrough(y,x+1) && map.get(y,x+1)!=FIRE) state = RIGHT;
                     else route = 0;
                 }
                 else{
@@ -314,13 +313,13 @@ void Enemy :: moveAnimation(){
     int sx = 48, sy = 66;
     switch(state){
         case STOP:
-            sx += x*32;
-            sy += y*32;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE;
             break;
         case FRONT: //Front
-            sx += x*32;
-            sy += y*32 + (frame+1)*step;
             frame++;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE + (frame*step);
             if(frame==4){
                 state = 0;
                 frame = 0;
@@ -328,9 +327,9 @@ void Enemy :: moveAnimation(){
             }
             break;
         case LEFT:
-            sx += x*32 - (frame+1)*step;
-            sy += y*32;
             frame++;
+            sx += x*GRID_SIZE - (frame*step);
+            sy += y*GRID_SIZE;
             if(frame==4){
                 state = 0;
                 frame = 0;
@@ -339,9 +338,9 @@ void Enemy :: moveAnimation(){
             break;
         case BACK:
             //d = d - step;
-            sx += x*32;
-            sy += y*32 - (frame+1)*step;
             frame++;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE - (frame*step);
             if(frame==4){
                 state = 0;
                 frame = 0;
@@ -349,9 +348,9 @@ void Enemy :: moveAnimation(){
             }
             break;
         case RIGHT:
-            sx += x*32 + (frame+1)*step;
-            sy += y*32 ;
             frame++;
+            sx += x*GRID_SIZE + (frame*step);
+            sy += y*GRID_SIZE ;
             if(frame==4){
                 state = 0;
                 frame = 0;
@@ -362,20 +361,9 @@ void Enemy :: moveAnimation(){
             frame = -1;
             break;
     }
-
-    switch(frame){
-        case 0:
-            displayImage(img2, sx, sy);
-            break;
-        case 1:
-            displayImage(img1, sx, sy);
-            break;
-        case 2:
-            displayImage(img3, sx, sy);
-            break;
-        case 3:
-            displayImage(img1, sx, sy);
-            break;
+    if (frame >= 0){
+        dx0 = (frame%3)*sprite_size;
+        displaySpriteImage(enemy_sprite, sx, sy, dx0, dy0, sprite_size, colorkey);
     }
 }
 

@@ -3,7 +3,7 @@
 SDL_Surface *screen;
 SDL_Event event;
 
-SDL_Color cor;
+SDL_Color color;
 
 SDL_Surface *menuImage;
 SDL_Surface *iconImage;
@@ -33,18 +33,6 @@ SDL_Surface *backImage3;
 SDL_Surface *leftImage1;
 SDL_Surface *leftImage2;
 SDL_Surface *leftImage3;
-
-SDL_Surface *enemyImage1;
-SDL_Surface *enemyImage2;
-SDL_Surface *enemyImage3;
-
-SDL_Surface *enemy2Image1;
-SDL_Surface *enemy2Image2;
-SDL_Surface *enemy2Image3;
-
-SDL_Surface *enemy3Image1;
-SDL_Surface *enemy3Image2;
-SDL_Surface *enemy3Image3;
 
 SDL_Surface *deadImage1;
 SDL_Surface *deadImage2;
@@ -153,10 +141,27 @@ void displayImage(SDL_Surface *image, int x, int y)
     SDL_BlitSurface(image, &src, screen, &dest);
 }
 
-void drawText(string texto, SDL_Surface* dst, int x, int y, SDL_Color cor)
+void displaySpriteImage(SDL_Surface *sprite, int x, int y, int dx, int dy, int sprite_size, int colorkey)
+{
+    SDL_Rect src, dest;
+    src.x = dx;
+    src.y = dy;
+    src.w = sprite_size;
+    src.h = sprite_size;
+
+    dest.x = x;
+    dest.y = y;
+    dest.w = sprite_size;
+    dest.h = sprite_size;
+
+    SDL_SetColorKey(sprite, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+    SDL_BlitSurface(sprite, &src, screen, &dest);
+}
+
+void drawText(string texto, SDL_Surface* dst, int x, int y, SDL_Color color)
 {
 
-  /*SDL_Surface* src = TTF_RenderText_Blended(font, texto, cor);
+  /*SDL_Surface* src = TTF_RenderText_Blended(font, texto, color);
   SDL_Rect dst_rect = {x, y, 0, 0};
 
   SDL_BlitSurface(src, NULL, dst, &dst_rect);

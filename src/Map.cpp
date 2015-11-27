@@ -32,16 +32,16 @@ void Map :: createItemlist(){
     srand ( time(NULL) );
     bool inserted=false;
     while(!inserted){
-        a=rand()%13;
-        b=rand()%11;
+        a=rand()%MAX_X;
+        b=rand()%MAX_Y;
         if(get(b,a)==ICE){
             itens.push_back(new Item(a,b,KEY));//gera chave
             inserted=true;
         }
     }
     for(int i=0;i<4;i++){//gera item de bomba
-        a=rand()%13;
-        b=rand()%11;
+        a=rand()%MAX_X;
+        b=rand()%MAX_Y;
         if(get(b,a)!=SNOWMAN){
             itens.push_back(new Item(a,b,BOMBPLUS));
         }else{
@@ -49,10 +49,10 @@ void Map :: createItemlist(){
         }
     }
     for(int i=0;i<4;i++){//gera item de fogo
-        a=rand()%13;
-        b=rand()%11;
+        a=rand()%MAX_X;
+        b=rand()%MAX_Y;
         if(get(b,a)!=SNOWMAN){
-            itens.push_back(new Item(rand()%11,rand()%13,FIREPOWER));
+            itens.push_back(new Item(a,b,FIREPOWER));
         }else{
             i--;
         }
@@ -97,12 +97,12 @@ void Map::print(){
 
 void Map::paint(SDL_Surface * bg, SDL_Surface * ice,int live){
     displayImage(bg,0,0);
-    char * livestr=new char[32];
-    drawText(to_string(live), screen, 80, 20,cor);
+    char * livestr=new char[GRID_SIZE];
+    drawText(to_string(live), screen, 80, 20,color);
      for(int i = 0; i<height; i++){
       for(int j = 0; j<width; j++){
           if(get(i,j) == ICE){
-            displayImage(ice, 48+(32*j), 66+(32*i));
+            displayImage(ice, 48+(GRID_SIZE*j), 66+(GRID_SIZE*i));
           }
         }
      }

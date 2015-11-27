@@ -31,11 +31,15 @@ class Character {
     public:
         int x;
         int y;
+        int dx0;
+        int dy0;
         int frame;
         int state;
         int life;
+        int colorkey;
+        int sprite_size;
         //int clear;
-        Character(int x, int y);
+        Character(int x, int y, int dx0, int dy0, int sprite_size);
         bool collide(Character *c);
         bool collide(int x, int y);
         virtual void moveAnimation() = 0;
@@ -49,7 +53,7 @@ class Player : public Character {
         int imuneTime;
         int deadTime;
         bool flic;
-        Player(int x, int y);
+        Player(int x, int y, int dx0, int dy0, int sprite_size);
         int bombNumber;
         int bombRange;
         void handleControl(list<int> &pressing);
@@ -62,10 +66,7 @@ class Enemy : public Character {
     public:
         int routetype;
         int route;
-        SDL_Surface * img1;
-        SDL_Surface * img2;
-        SDL_Surface * img3;
-        Enemy(int x, int y,SDL_Surface * img1, SDL_Surface *img2, SDL_Surface * img3, int routetype);
+        Enemy(int x, int y, int routetype, int dx0,int dy0, int sprite_size);
         void action ();
         virtual void moveAnimation();
         virtual void die();
