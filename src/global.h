@@ -19,6 +19,7 @@
 
 #define delay       70
 #define ENEMY_SPRITE_SIZE  32
+#define PLAYER_SPRITE_SIZE  48
 #define GRID_SIZE 32
 #define MAX_X 13
 #define MAX_Y 11
@@ -52,30 +53,6 @@ extern SDL_Surface *item_sprite;
 extern SDL_Surface *enemy_sprite;
 extern SDL_Surface *fire_sprite;
 extern SDL_Surface *player_sprite;
-
-extern SDL_Surface *frontImage1;
-extern SDL_Surface *frontImage2;
-extern SDL_Surface *frontImage3;
-
-extern SDL_Surface *rightImage1;
-extern SDL_Surface *rightImage2;
-extern SDL_Surface *rightImage3;
-
-extern SDL_Surface *backImage1;
-extern SDL_Surface *backImage2;
-extern SDL_Surface *backImage3;
-
-extern SDL_Surface *leftImage1;
-extern SDL_Surface *leftImage2;
-extern SDL_Surface *leftImage3;
-
-extern SDL_Surface *deadImage1;
-extern SDL_Surface *deadImage2;
-extern SDL_Surface *deadImage3;
-
-extern SDL_Surface *winImage1;
-extern SDL_Surface *winImage2;
-extern SDL_Surface *winImage3;
 
 extern SDL_Surface *loseImage1;
 extern SDL_Surface *loseImage2;

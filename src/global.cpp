@@ -15,34 +15,6 @@ SDL_Surface *enemy_sprite;
 SDL_Surface *fire_sprite;
 SDL_Surface *player_sprite;
 
-SDL_Surface *frontImage1;
-SDL_Surface *frontImage2;
-SDL_Surface *frontImage3;
-
-SDL_Surface *rightImage1;
-SDL_Surface *rightImage2;
-SDL_Surface *rightImage3;
-
-SDL_Surface *backImage1;
-SDL_Surface *backImage2;
-SDL_Surface *backImage3;
-
-SDL_Surface *leftImage1;
-SDL_Surface *leftImage2;
-SDL_Surface *leftImage3;
-
-SDL_Surface *deadImage1;
-SDL_Surface *deadImage2;
-SDL_Surface *deadImage3;
-
-SDL_Surface *winImage1;
-SDL_Surface *winImage2;
-SDL_Surface *winImage3;
-
-SDL_Surface *loseImage1;
-SDL_Surface *loseImage2;
-SDL_Surface *loseImage3;
-
 SDL_Surface *fireCenterImage1;
 SDL_Surface *fireCenterImage2;
 SDL_Surface *fireCenterImage3;

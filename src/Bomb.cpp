@@ -8,7 +8,6 @@ Bomb::Bomb(int x, int y, int range)
     this->x = x;
     this->y = y;
     this->colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
-    this->sprite_size = ENEMY_SPRITE_SIZE;
     state=SET;
     frame=0;
     timer=32;
@@ -84,7 +83,7 @@ void Bomb :: action(){
 
 void Bomb :: moveAnimation(){
     int sx, sy;
-    int dx0 = 0, dy0 = 96;
+    int dx0, dy0;
     if(state==SET){
         sx = 48+x*GRID_SIZE;
         sy = 66+y*GRID_SIZE;
@@ -95,19 +94,53 @@ void Bomb :: moveAnimation(){
     switch(state){
         case SET:
             //action();
-            frame++;
-            frame = frame%6;
-            dx0 = frame/2*sprite_size;
-            displaySpriteImage(enemy_sprite, sx, sy, dx0, dy0, sprite_size, colorkey);
+            frame = (frame+1)%6;
+            dx0 = frame/2*GRID_SIZE;
+            dy0 = 3*GRID_SIZE;
+            displaySpriteImage(enemy_sprite, sx, sy, dx0, dy0, GRID_SIZE, colorkey);
             break;
         case EXPLODE:
             frame++;
             if(frame==8){
                 state = ASH;
+            }else{
+                displayImage(fire_sprite, sx, sy);
+                if(x-range>=0 && map.get(y,x-range)==FIRE){ //Left
+                    displayImage(fire_sprite, sx-range*GRID_SIZE, sy);
+                }
+                for(int i = 1; i<range; i++){
+                    if((x-i)>=0 && map.get(y,x-i)==FIRE){ //Left middle
+                        displayImage(fire_sprite, sx-i*GRID_SIZE, sy);
+                    }
+                }
+                if(y-range>=0 && map.get(y-range,x)==FIRE){ //Up
+                    displayImage(fire_sprite, sx, sy-range*GRID_SIZE);
+                }
+                for(int i = 1; i<range; i++){
+                    if((y-i)>=0 && map.get(y-i,x)==FIRE){ //Up Middle
+                        displayImage(fire_sprite, sx, sy-i*GRID_SIZE);
+                    }
+                }
+                if(x+range<MAX_X && map.get(y,x+range)==FIRE){ //Right
+                    displayImage(fire_sprite, sx+range*GRID_SIZE, sy);
+                }
+                for(int i = 1; i<range; i++){
+                    if((x+i)<MAX_X && map.get(y,x+i)==FIRE){ //Right Middle
+                        displayImage(fire_sprite, sx+i*GRID_SIZE, sy);
+                    }
+                }
+                if(y+range<MAX_Y && map.get(y+range,x)==FIRE){ //Down
+                    displayImage(fire_sprite, sx, sy+range*GRID_SIZE);
+                }
+                for(int i = 1; i<range; i++){
+                    if((y+i)<MAX_Y && map.get(y+i,x)==FIRE){ //Down Middle
+                        displayImage(fire_sprite, sx, sy+i*GRID_SIZE);
+                    }
+                }
             }
             break;
     }
-    switch(frame){
+    /*switch(frame){
         case 0:
             if(state==SET){
                 //displaySpriteImage(enemy_sprite, sx, sy, dx0*sprite_size, dy0, sprite_size, colorkey);
@@ -320,5 +353,5 @@ void Bomb :: moveAnimation(){
                         displayImage(fireDownMiddleImage1, sx, sy+i*32);
             }
             break;
-    }
+    }*/
 }

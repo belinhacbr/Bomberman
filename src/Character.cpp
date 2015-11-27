@@ -6,7 +6,7 @@ Character :: Character(int x, int y, int dx0, int dy0, int sprite_size){
     this->y=y;
     this->dx0 = dx0;
     this->dy0 = dy0;
-    this->sprite_size = 32;
+    this->sprite_size = sprite_size;
     this->colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     frame=0;
     state=0;
@@ -28,6 +28,7 @@ Player :: Player(int x, int y, int dx0, int dy0, int sprite_size) : Character(x,
     imuneTime=0;
     deadTime=0;
     flic = false;
+    colorkey = SDL_MapRGB(screen->format, 0, 255, 0);
 }
 
 void Player :: handleControl (list<int> &pressing) {
@@ -120,17 +121,15 @@ void Player :: moveAnimation(){
     int sx = 48, sy = 52;
     switch(state){
         case STOP:
-            img2 = frontImage1;
+            dy0 = 2*sprite_size;
             sx += x*GRID_SIZE;
             sy += y*GRID_SIZE;
             break;
         case FRONT: //Front
-            sx += x*GRID_SIZE;
-            sy += y*GRID_SIZE + (frame+1)*step;
-            img1 = frontImage1;
-            img2 = frontImage2;
-            img3 = frontImage3;
+            dy0 = 2*sprite_size;
             frame++;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE + (frame*step);
             if(frame==4){
                 state = 0;
                 frame = 0;
@@ -138,13 +137,10 @@ void Player :: moveAnimation(){
             }
             break;
         case LEFT:
-            sx += x*GRID_SIZE - (frame+1)*step;
-            sy += y*GRID_SIZE;
-            img1 = leftImage1;
-            img2 = leftImage2;
-            img3 = leftImage3;
-
+            dy0 = 0;
             frame++;
+            sx += x*GRID_SIZE - (frame*step);
+            sy += y*GRID_SIZE;
             if(frame==4){
                 state = 0;
                 frame = 0;
@@ -152,12 +148,10 @@ void Player :: moveAnimation(){
             }
             break;
         case BACK:
-            sx += x*GRID_SIZE;
-            sy += y*GRID_SIZE - (frame+1)*step;
-            img1 = backImage1;
-            img2 = backImage2;
-            img3 = backImage3;
+            dy0 = 3*sprite_size;
             frame++;
+            sx += x*GRID_SIZE;
+            sy += y*GRID_SIZE - (frame*step);
             if(frame==4){
                 state = 0;
                 frame = 0;
@@ -165,12 +159,10 @@ void Player :: moveAnimation(){
             }
             break;
         case RIGHT:
-            sx += x*GRID_SIZE + (frame+1)*step;
-            sy += y*GRID_SIZE ;
-            img1 = rightImage1;
-            img2 = rightImage2;
-            img3 = rightImage3;
+            dy0 = 1*sprite_size;
             frame++;
+            sx += x*GRID_SIZE + (frame*step);
+            sy += y*GRID_SIZE ;
             if(frame==4){
                 state = 0;
                 frame = 0;
@@ -178,11 +170,9 @@ void Player :: moveAnimation(){
             }
             break;
         case DEAD:
+            dy0 = 4*sprite_size;
             sx += x*GRID_SIZE;
             sy += y*GRID_SIZE;
-            img1=deadImage2;
-            img2=deadImage1;
-            img3=deadImage3;
             if(flic){
                 flic=0;
                 frame ++;
@@ -193,11 +183,9 @@ void Player :: moveAnimation(){
             }
             break;
         case WIN:
+            dy0 = 6*sprite_size;
             sx += x*GRID_SIZE;
             sy += y*GRID_SIZE;
-            img1=winImage1;
-            img2=winImage2;
-            img3=winImage3;
             if(flic){
                 flic=0;
                 frame ++;
@@ -208,11 +196,9 @@ void Player :: moveAnimation(){
             }
             break;
         case LOSE:
+            dy0 = 5*sprite_size;
             sx += x*GRID_SIZE;
             sy += y*GRID_SIZE;
-            img1=loseImage1;
-            img2=loseImage2;
-            img3=loseImage3;
             if(flic){
                 flic=0;
                 frame ++;
@@ -223,36 +209,10 @@ void Player :: moveAnimation(){
             }
             break;
     }
-
-    switch(frame){
-        case 0:
-            displayImage(img2, sx, sy);
-            break;
-        case 1:
-            displayImage(img1, sx, sy);
-            break;
-        case 2:
-            displayImage(img3, sx, sy);
-            break;
-        case 3:
-            displayImage(img1, sx, sy);
-            break;
+    if (frame >= 0){
+        dx0 = (frame%3)*sprite_size;
+        displaySpriteImage(player_sprite, sx, sy, dx0, dy0, sprite_size, colorkey);
     }
-
-    /*if(state==WIN){
-        color={255,255,255};
-        drawText("YOU WIN!", screen, 300, 15,color);
-    }
-    else if(state==LOSE){
-        color={255,255,255};
-        drawText("YOU LOSE!", screen, 300, 15,color);
-    }
-    else if(imuneTime && state!=DEAD){
-        color={255,255,255};
-        drawText("Imune por", screen, 300, 15,color);
-        char * imuneTimestr = new char [32];
-        drawText(itoa(imuneTime,imuneTimestr,10), screen, 380, 15,color);
-    }*/
 }
 
 Enemy :: Enemy(int x, int y, int routetype, int dx0=0, int dy0=0, int sprite_size=32) : Character(x, y, dx0, dy0, sprite_size){

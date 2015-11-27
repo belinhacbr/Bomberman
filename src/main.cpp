@@ -122,7 +122,7 @@ void menu(){
 
 void game(){
     map.loadMap("src/map.txt");
-    player = new Player(0, 0, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
+    player = new Player(0, 0, 0, PLAYER_SPRITE_SIZE, PLAYER_SPRITE_SIZE);
     enemy = new Enemy(9, 0, 1, 0, 0, ENEMY_SPRITE_SIZE);
     enemy2 = new Enemy(7, 6, 2, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
     enemy3 = new Enemy(5, 10, 3, 0, ENEMY_SPRITE_SIZE*2, ENEMY_SPRITE_SIZE);
@@ -372,10 +372,6 @@ void SDL_startup()
 
 void loadImages()
 {
-    //item_sprite;
-    //enemy_sprite;
-    //fire_sprite;
-    //player_sprite;
     SDL_Surface * temp;
 
     menuImage =IMG_Load("data/bgmenu.png");
@@ -390,33 +386,13 @@ void loadImages()
     item_sprite = SDL_DisplayFormat(temp);
     SDL_FreeSurface(temp);
 
-    frontImage1 = IMG_Load("data/Down.png");
-    frontImage2 = IMG_Load("data/DownEsq.png");
-    frontImage3 = IMG_Load("data/DownDir.png");
+    temp  = SDL_LoadBMP("data/player_sprite.bmp");
+    player_sprite = SDL_DisplayFormat(temp);
+    SDL_FreeSurface(temp);
 
-    rightImage1 = IMG_Load("data/Right.png");
-    rightImage2 = IMG_Load("data/RightEsq.png");
-    rightImage3 = IMG_Load("data/RightDir.png");
-
-    backImage1 = IMG_Load("data/Up.png");
-    backImage2 = IMG_Load("data/UpEsq.png");
-    backImage3 = IMG_Load("data/UpDir.png");
-
-    leftImage1 = IMG_Load("data/Left.png");
-    leftImage2 = IMG_Load("data/LeftEsq.png");
-    leftImage3 = IMG_Load("data/LeftDir.png");
-
-    deadImage1 = IMG_Load("data/dead1.png");
-    deadImage2 = IMG_Load("data/dead2.png");
-    deadImage3 = IMG_Load("data/dead3.png");
-
-    winImage1 = IMG_Load("data/win1.png");
-    winImage2 = IMG_Load("data/win2.png");
-    winImage3 = IMG_Load("data/win3.png");
-
-    loseImage1 = IMG_Load("data/lose1.png");
-    loseImage2 = IMG_Load("data/lose2.png");
-    loseImage3 = IMG_Load("data/lose3.png");
+    temp  = SDL_LoadBMP("data/fire_sprite.bmp");
+    fire_sprite = SDL_DisplayFormat(temp);
+    SDL_FreeSurface(temp);
 
     fireCenterImage1 = IMG_Load("data/firec1.png");
     fireCenterImage2 = IMG_Load("data/firec2.png");
@@ -469,26 +445,12 @@ void releaseImages()
 {
     SDL_FreeSurface(enemy_sprite);
     SDL_FreeSurface(item_sprite);
+    SDL_FreeSurface(player_sprite);
+    SDL_FreeSurface(fire_sprite);
 
     SDL_FreeSurface(menuImage);
     SDL_FreeSurface(iconImage);
     SDL_FreeSurface(mapImage);
-
-    SDL_FreeSurface(frontImage1);
-    SDL_FreeSurface(frontImage2);
-    SDL_FreeSurface(frontImage3);
-
-    SDL_FreeSurface(rightImage1);
-    SDL_FreeSurface(rightImage2);
-    SDL_FreeSurface(rightImage3);
-
-    SDL_FreeSurface(backImage1);
-    SDL_FreeSurface(backImage2);
-    SDL_FreeSurface(backImage3);
-
-    SDL_FreeSurface(leftImage1);
-    SDL_FreeSurface(leftImage2);
-    SDL_FreeSurface(leftImage3);
 
     SDL_FreeSurface(fireCenterImage1);
     SDL_FreeSurface(fireCenterImage2);
