@@ -393,52 +393,6 @@ void loadImages()
     temp  = SDL_LoadBMP("data/fire_sprite.bmp");
     fire_sprite = SDL_DisplayFormat(temp);
     SDL_FreeSurface(temp);
-
-    fireCenterImage1 = IMG_Load("data/firec1.png");
-    fireCenterImage2 = IMG_Load("data/firec2.png");
-    fireCenterImage3 = IMG_Load("data/firec3.png");
-    fireCenterImage4 = IMG_Load("data/firec4.png");
-
-    fireUpImage1 = IMG_Load("data/fireu1.png");
-    fireUpImage2 = IMG_Load("data/fireu2.png");
-    fireUpImage3 = IMG_Load("data/fireu3.png");
-    fireUpImage4 = IMG_Load("data/fireu4.png");
-
-    fireDownImage1 = IMG_Load("data/fired1.png");
-    fireDownImage2 = IMG_Load("data/fired2.png");
-    fireDownImage3 = IMG_Load("data/fired3.png");
-    fireDownImage4 = IMG_Load("data/fired4.png");
-
-    fireLeftImage1 = IMG_Load("data/firel1.png");
-    fireLeftImage2 = IMG_Load("data/firel2.png");
-    fireLeftImage3 = IMG_Load("data/firel3.png");
-    fireLeftImage4 = IMG_Load("data/firel4.png");
-
-    fireRightImage1 = IMG_Load("data/firer1.png");
-    fireRightImage2 = IMG_Load("data/firer2.png");
-    fireRightImage3 = IMG_Load("data/firer3.png");
-    fireRightImage4 = IMG_Load("data/firer4.png");
-
-    fireLeftMiddleImage1 = IMG_Load("data/firelm1.png");
-    fireLeftMiddleImage2 = IMG_Load("data/firelm2.png");
-    fireLeftMiddleImage3 = IMG_Load("data/firelm3.png");
-    fireLeftMiddleImage4 = IMG_Load("data/firelm4.png");
-
-    fireRightMiddleImage1 = IMG_Load("data/firerm1.png");
-    fireRightMiddleImage2 = IMG_Load("data/firerm2.png");
-    fireRightMiddleImage3 = IMG_Load("data/firerm3.png");
-    fireRightMiddleImage4 = IMG_Load("data/firerm4.png");
-
-    fireUpMiddleImage1 = IMG_Load("data/firem1.png");
-    fireUpMiddleImage2 = IMG_Load("data/firem2.png");
-    fireUpMiddleImage3 = IMG_Load("data/firem3.png");
-    fireUpMiddleImage4 = IMG_Load("data/firem4.png");
-
-    fireDownMiddleImage1 = IMG_Load("data/firem1.png");
-    fireDownMiddleImage2 = IMG_Load("data/firem2.png");
-    fireDownMiddleImage3 = IMG_Load("data/firem3.png");
-    fireDownMiddleImage4 = IMG_Load("data/firem4.png");
-
 }
 
 void releaseImages()
@@ -452,48 +406,4 @@ void releaseImages()
     SDL_FreeSurface(iconImage);
     SDL_FreeSurface(mapImage);
 
-    SDL_FreeSurface(fireCenterImage1);
-    SDL_FreeSurface(fireCenterImage2);
-    SDL_FreeSurface(fireCenterImage3);
-    SDL_FreeSurface(fireCenterImage4);
-
-    SDL_FreeSurface(fireUpImage1);
-    SDL_FreeSurface(fireUpImage2);
-    SDL_FreeSurface(fireUpImage3);
-    SDL_FreeSurface(fireUpImage4);
-
-    SDL_FreeSurface(fireDownImage1);
-    SDL_FreeSurface(fireDownImage2);
-    SDL_FreeSurface(fireDownImage3);
-    SDL_FreeSurface(fireDownImage4);
-
-    SDL_FreeSurface(fireLeftImage1);
-    SDL_FreeSurface(fireLeftImage2);
-    SDL_FreeSurface(fireLeftImage3);
-    SDL_FreeSurface(fireLeftImage4);
-
-    SDL_FreeSurface(fireRightImage1);
-    SDL_FreeSurface(fireRightImage2);
-    SDL_FreeSurface(fireRightImage3);
-    SDL_FreeSurface(fireRightImage4);
-
-    SDL_FreeSurface(fireLeftMiddleImage1);
-    SDL_FreeSurface(fireLeftMiddleImage2);
-    SDL_FreeSurface(fireLeftMiddleImage3);
-    SDL_FreeSurface(fireLeftMiddleImage4);
-
-    SDL_FreeSurface(fireRightMiddleImage1);
-    SDL_FreeSurface(fireRightMiddleImage2);
-    SDL_FreeSurface(fireRightMiddleImage3);
-    SDL_FreeSurface(fireRightMiddleImage4);
-
-    SDL_FreeSurface(fireUpMiddleImage1);
-    SDL_FreeSurface(fireUpMiddleImage2);
-    SDL_FreeSurface(fireUpMiddleImage3);
-    SDL_FreeSurface(fireUpMiddleImage4);
-
-    SDL_FreeSurface(fireDownMiddleImage1);
-    SDL_FreeSurface(fireDownMiddleImage2);
-    SDL_FreeSurface(fireDownMiddleImage3);
-    SDL_FreeSurface(fireDownMiddleImage4);
 }

@@ -54,55 +54,6 @@ extern SDL_Surface *enemy_sprite;
 extern SDL_Surface *fire_sprite;
 extern SDL_Surface *player_sprite;
 
-extern SDL_Surface *loseImage1;
-extern SDL_Surface *loseImage2;
-extern SDL_Surface *loseImage3;
-
-extern SDL_Surface *fireCenterImage1;
-extern SDL_Surface *fireCenterImage2;
-extern SDL_Surface *fireCenterImage3;
-extern SDL_Surface *fireCenterImage4;
-
-extern SDL_Surface *fireUpImage1;
-extern SDL_Surface *fireUpImage2;
-extern SDL_Surface *fireUpImage3;
-extern SDL_Surface *fireUpImage4;
-
-extern SDL_Surface *fireDownImage1;
-extern SDL_Surface *fireDownImage2;
-extern SDL_Surface *fireDownImage3;
-extern SDL_Surface *fireDownImage4;
-
-extern SDL_Surface *fireLeftImage1;
-extern SDL_Surface *fireLeftImage2;
-extern SDL_Surface *fireLeftImage3;
-extern SDL_Surface *fireLeftImage4;
-
-extern SDL_Surface *fireRightImage1;
-extern SDL_Surface *fireRightImage2;
-extern SDL_Surface *fireRightImage3;
-extern SDL_Surface *fireRightImage4;
-
-extern SDL_Surface *fireLeftMiddleImage1;
-extern SDL_Surface *fireLeftMiddleImage2;
-extern SDL_Surface *fireLeftMiddleImage3;
-extern SDL_Surface *fireLeftMiddleImage4;
-
-extern SDL_Surface *fireRightMiddleImage1;
-extern SDL_Surface *fireRightMiddleImage2;
-extern SDL_Surface *fireRightMiddleImage3;
-extern SDL_Surface *fireRightMiddleImage4;
-
-extern SDL_Surface *fireUpMiddleImage1;
-extern SDL_Surface *fireUpMiddleImage2;
-extern SDL_Surface *fireUpMiddleImage3;
-extern SDL_Surface *fireUpMiddleImage4;
-
-extern SDL_Surface *fireDownMiddleImage1;
-extern SDL_Surface *fireDownMiddleImage2;
-extern SDL_Surface *fireDownMiddleImage3;
-extern SDL_Surface *fireDownMiddleImage4;
-
 extern TTF_Font *font;
 extern SDL_AudioSpec audioFmt;
 

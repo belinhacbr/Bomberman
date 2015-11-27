@@ -13,7 +13,6 @@ public:
     int frame;
     int timer;
     int state;
-    int sprite_size;
     int colorkey;
     bool up,down,left,right;
     Bomb(int x, int y, int range);

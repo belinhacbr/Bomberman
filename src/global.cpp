@@ -15,51 +15,6 @@ SDL_Surface *enemy_sprite;
 SDL_Surface *fire_sprite;
 SDL_Surface *player_sprite;
 
-SDL_Surface *fireCenterImage1;
-SDL_Surface *fireCenterImage2;
-SDL_Surface *fireCenterImage3;
-SDL_Surface *fireCenterImage4;
-
-SDL_Surface *fireUpImage1;
-SDL_Surface *fireUpImage2;
-SDL_Surface *fireUpImage3;
-SDL_Surface *fireUpImage4;
-
-SDL_Surface *fireDownImage1;
-SDL_Surface *fireDownImage2;
-SDL_Surface *fireDownImage3;
-SDL_Surface *fireDownImage4;
-
-SDL_Surface *fireLeftImage1;
-SDL_Surface *fireLeftImage2;
-SDL_Surface *fireLeftImage3;
-SDL_Surface *fireLeftImage4;
-
-SDL_Surface *fireRightImage1;
-SDL_Surface *fireRightImage2;
-SDL_Surface *fireRightImage3;
-SDL_Surface *fireRightImage4;
-
-SDL_Surface *fireLeftMiddleImage1;
-SDL_Surface *fireLeftMiddleImage2;
-SDL_Surface *fireLeftMiddleImage3;
-SDL_Surface *fireLeftMiddleImage4;
-
-SDL_Surface *fireRightMiddleImage1;
-SDL_Surface *fireRightMiddleImage2;
-SDL_Surface *fireRightMiddleImage3;
-SDL_Surface *fireRightMiddleImage4;
-
-SDL_Surface *fireUpMiddleImage1;
-SDL_Surface *fireUpMiddleImage2;
-SDL_Surface *fireUpMiddleImage3;
-SDL_Surface *fireUpMiddleImage4;
-
-SDL_Surface *fireDownMiddleImage1;
-SDL_Surface *fireDownMiddleImage2;
-SDL_Surface *fireDownMiddleImage3;
-SDL_Surface *fireDownMiddleImage4;
-
 TTF_Font *font;
 SDL_AudioSpec audioFmt;
 struct audioSample sounds[NUM_SOUNDS];
