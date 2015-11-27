@@ -10,6 +10,7 @@
 
 /data/*.png
 /data/*.xcf
+/data/old_sprites
 !/data/about.png
 !/data/bg.png
 !/data/bgmenu.png

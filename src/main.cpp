@@ -100,19 +100,20 @@ void menu(){
             close=true;
             choose=true;
         }
+
+        int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
         switch(menuoption){
             case 0:
                 sy=190;
-                displayImage(iconImage,sx,sy);
+                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
                 break;
             case 1:
                 sy=255;
-                displayImage(iconImage,sx,sy);
+                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
                 break;
             case 2:
                 sy=320;
-                displayImage(iconImage,sx,sy);
-
+                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
                 break;
         }
         SDL_Flip(screen);
@@ -254,14 +255,15 @@ void options(){
             close=true;
             choose=true;
         }
+        int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
         switch(enabledsound){
             case 0:
                 sy=255;
-                displayImage(iconImage,sx,sy);
+                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
                 break;
             case 1:
                 sy=190;
-                displayImage(iconImage,sx,sy);
+                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
                 break;
         }
         SDL_Flip(screen);
@@ -375,7 +377,6 @@ void loadImages()
     SDL_Surface * temp;
 
     menuImage =IMG_Load("data/bgmenu.png");
-    iconImage = IMG_Load("data/icon.png");
     mapImage = IMG_Load("data/bg.png");
 
     temp  = SDL_LoadBMP("data/enemies_sprite.bmp");
@@ -403,7 +404,6 @@ void releaseImages()
     SDL_FreeSurface(fire_sprite);
 
     SDL_FreeSurface(menuImage);
-    SDL_FreeSurface(iconImage);
     SDL_FreeSurface(mapImage);
 
 }

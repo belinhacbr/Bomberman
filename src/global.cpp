@@ -6,7 +6,6 @@ SDL_Event event;
 SDL_Color color;
 
 SDL_Surface *menuImage;
-SDL_Surface *iconImage;
 SDL_Surface *optionsImage;
 
 SDL_Surface *mapImage;
