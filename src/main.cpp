@@ -225,50 +225,44 @@ void options(){
     sx=180;
     sy=190;
     color = {255, 255, 255};
+    int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     bool choose = false;
     SDL_Surface *optionsImage = IMG_Load("data/options.png");
     while(!choose){
         if(!close){
-        SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
-        displayImage(optionsImage,0,0);
-        drawText("Aperte B para selecionar", screen, 180, 390,color);
-        while(SDL_PollEvent(&event)){
-            switch(event.type){
-                case SDL_KEYDOWN:
-                    switch(event.key.keysym.sym){
-                        case SDLK_UP:
-                                enabledsound = 1;
-                             break;
-                        case SDLK_DOWN:
-                                enabledsound = 0;
-                            break;
-                        case SDLK_b:
-                            choose=true;
-                             break;
-                        default:
-                            break;
-                    }
-                break;
+            SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
+            displayImage(optionsImage,0,0);
+            drawText("Aperte B para selecionar", screen, 180, 390,color);
+            while(SDL_PollEvent(&event)){
+                switch(event.type){
+                    case SDL_KEYDOWN:
+                        switch(event.key.keysym.sym){
+                            case SDLK_UP:
+                                    enabledsound = 1;
+                                    sy=190;
+                                 break;
+                            case SDLK_DOWN:
+                                    enabledsound = 0;
+                                    sy=255;
+                                break;
+                            case SDLK_b:
+                                choose=true;
+                                 break;
+                            default:
+                                break;
+                        }
+                    break;
+                }
             }
-        }
-        if (event.type == SDL_QUIT) {
-            close=true;
-            choose=true;
-        }
-        int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
-        switch(enabledsound){
-            case 0:
-                sy=255;
-                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
-                break;
-            case 1:
-                sy=190;
-                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
-                break;
-        }
-        SDL_Flip(screen);
+            if (event.type == SDL_QUIT) {
+                close=true;
+                choose=true;
+            }
+            displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
+            SDL_Flip(screen);
         }
     }
+    SDL_FreeSurface(optionsImage);
 }
 
 void about(){

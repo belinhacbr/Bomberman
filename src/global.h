@@ -45,9 +45,8 @@ extern SDL_Surface *screen;
 extern SDL_Event event;
 
 extern SDL_Surface *menuImage;
-extern SDL_Surface *optionsImage;
-
 extern SDL_Surface *mapImage;
+
 extern SDL_Surface *item_sprite;
 extern SDL_Surface *enemy_sprite;
 extern SDL_Surface *fire_sprite;

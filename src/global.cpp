@@ -6,9 +6,8 @@ SDL_Event event;
 SDL_Color color;
 
 SDL_Surface *menuImage;
-SDL_Surface *optionsImage;
-
 SDL_Surface *mapImage;
+
 SDL_Surface *item_sprite;
 SDL_Surface *enemy_sprite;
 SDL_Surface *fire_sprite;
