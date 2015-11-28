@@ -209,7 +209,7 @@ void Player :: moveAnimation(){
             }
             break;
     }
-    if (frame >= 0){
+    if (frame >= 0 && (imuneTime%2)==0){
         dx0 = (frame%3)*sprite_size;
         displaySpriteImage(player_sprite, sx, sy, dx0, dy0, sprite_size, colorkey);
     }
