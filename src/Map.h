@@ -22,14 +22,14 @@ class Map {
         int * map;
         int width;
         int height;
+        void createItem(int itemType, int sprite_dy0, int quantity);
+        void createKey();
     public:
         list <Bomb * > bombs;
         list <Item * > itens;
         Map(int width, int height);
         void loadMap(const char *fileName);
         void createItemlist();
-        void createItem(int itemType, int sprite_dy0, int quantity);
-        void createKey();
         int get(int lin, int col);
         void set(int lin, int col, int val);
         void print();

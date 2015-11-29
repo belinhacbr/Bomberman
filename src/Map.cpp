@@ -20,7 +20,7 @@ void Map::loadMap(const char *fileName) {
       }
       in.get();
       #ifdef __unix__
-        in.get();
+          in.get();
       #endif
     }
     in.close();
@@ -101,13 +101,13 @@ void Map::paint(int lives){
     int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     char * livestr=new char[GRID_SIZE];
     drawText(to_string(lives), screen, 80, 20,color);
-     for(int i = 0; i<height; i++){
-      for(int j = 0; j<width; j++){
-          if(get(i,j) == ICE){
-            displaySpriteImage(item_sprite, 48+(GRID_SIZE*j), 66+(GRID_SIZE*i), 0, 3*GRID_SIZE, GRID_SIZE, colorkey);
-          }
+    for(int i = 0; i<height; i++){
+        for(int j = 0; j<width; j++){
+            if(get(i,j) == ICE){
+              displaySpriteImage(item_sprite, 48+(GRID_SIZE*j), 66+(GRID_SIZE*i), 0, 3*GRID_SIZE, GRID_SIZE, colorkey);
+            }
         }
-     }
+    }
 }
 
 void Map::moveAnimation(){
