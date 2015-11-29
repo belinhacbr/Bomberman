@@ -27,7 +27,13 @@ void Map::loadMap(const char *fileName) {
     createItemlist();
 }
 
-void Map :: createItemlist(){
+void Map::createItemlist(){
+    createKey();
+    createItem(BOMBPLUS, 1*GRID_SIZE, 4);
+    createItem(FIREPOWER, 0*GRID_SIZE, 4);
+}
+
+void Map::createKey(){
     int a,b;
     srand ( time(NULL) );
     bool inserted=false;
@@ -35,35 +41,30 @@ void Map :: createItemlist(){
         a=rand()%MAX_X;
         b=rand()%MAX_Y;
         if(get(b,a)==ICE){
-            itens.push_back(new Item(a,b,KEY, 0, 2*GRID_SIZE));//gera chave
+            itens.push_back(new Item(a,b,KEY, 0, 2*GRID_SIZE));
             inserted=true;
         }
     }
-    for(int i=0;i<4;i++){//gera item de bomba
+}
+
+void Map::createItem(int itemType, int sprite_dy0, int quantity){
+      int a,b;
+      for(int i=0;i<quantity;i++){
         a=rand()%MAX_X;
         b=rand()%MAX_Y;
         if(get(b,a)!=SNOWMAN){
-            itens.push_back(new Item(a,b,BOMBPLUS, 0, 1*GRID_SIZE));
-        }else{
-            i--;
-        }
-    }
-    for(int i=0;i<4;i++){//gera item de fogo
-        a=rand()%MAX_X;
-        b=rand()%MAX_Y;
-        if(get(b,a)!=SNOWMAN){
-            itens.push_back(new Item(a,b,FIREPOWER, 0, 0*GRID_SIZE));
+            itens.push_back(new Item(a,b,itemType, 0, sprite_dy0));
         }else{
             i--;
         }
     }
 }
 
-bool Map :: passThrough(int lin,int col){
+bool Map::passThrough(int lin,int col){
     return (get(lin,col)!=SNOWMAN && get(lin,col)!=ICE && get(lin,col)!=BOMB);
 }
 
-void Map :: pickItem(int lin,int col, int item){
+void Map::pickItem(int lin,int col, int item){
     list<Item*>::iterator temp;
     set(lin,col,EMPTY);
     for(list<Item*>::iterator it=itens.begin();it!=itens.end();it++){
