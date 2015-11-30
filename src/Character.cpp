@@ -1,27 +1,27 @@
 #include "Character.h"
 #include "global.h"
 
-Character :: Character(int x, int y, int dx0, int dy0, int sprite_size){
+Character::Character(int x, int y, int dx0, int dy0, int sprite_size){
     this->x=x;
     this->y=y;
     this->dx0 = dx0;
     this->dy0 = dy0;
     this->sprite_size = sprite_size;
     this->colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
-    frame=0;
-    state=0;
-    life=1;
+    this->frame=0;
+    this->state=0;
+    this->life=1;
 }
 
-bool Character :: collide (Character *c){
+bool Character::collide (Character *c){
     return ( c->x == this->x && c->y==this->y);
 }
 
-bool Character :: collide(int x, int y){
+bool Character::collide(int x, int y){
     return (x == this->x && y == this->y);
 }
 
-Player :: Player(int x, int y, int dx0, int dy0, int sprite_size) : Character(x, y, dx0, dy0, sprite_size){
+Player::Player(int x, int y, int dx0, int dy0, int sprite_size) : Character(x, y, dx0, dy0, sprite_size){
     bombNumber=1;
     bombRange=1;
     life=3;
@@ -31,7 +31,7 @@ Player :: Player(int x, int y, int dx0, int dy0, int sprite_size) : Character(x,
     colorkey = SDL_MapRGB(screen->format, 0, 255, 0);
 }
 
-void Player :: handleControl (list<int> &pressing) {
+void Player::handleControl (list<int> &pressing) {
     if(state!=DEAD && state!=LOSE && state!=WIN){
         for(list<int>::iterator it=pressing.begin();it!=pressing.end();it++){
             switch(*(it)){
@@ -104,7 +104,7 @@ void Player :: handleControl (list<int> &pressing) {
 }
 
 
-void Player :: die(){
+void Player::die(){
     if(imuneTime==0){
         state=DEAD;
         imuneTime = IMUNE_TIME;
@@ -116,7 +116,7 @@ void Player :: die(){
     }
 }
 
-void Player :: moveAnimation(){
+void Player::moveAnimation(){
     SDL_Surface *img1, *img2, *img3;
     int sx = 48, sy = 52;
     switch(state){
@@ -215,12 +215,12 @@ void Player :: moveAnimation(){
     }
 }
 
-Enemy :: Enemy(int x, int y, int routetype, int dx0=0, int dy0=0, int sprite_size=32) : Character(x, y, dx0, dy0, sprite_size){
+Enemy::Enemy(int x, int y, int routetype, int dx0=0, int dy0=0, int sprite_size=32) : Character(x, y, dx0, dy0, sprite_size){
     this->routetype=routetype;
     this->route=0;
 }
 
-void Enemy :: action (){
+void Enemy::action (){
     if(state==STOP){
         switch(routetype){
             case 1:
@@ -269,7 +269,7 @@ void Enemy :: action (){
 
 
 
-void Enemy :: moveAnimation(){
+void Enemy::moveAnimation(){
     int sx = 48, sy = 66;
     switch(state){
         case STOP:
@@ -327,13 +327,13 @@ void Enemy :: moveAnimation(){
     }
 }
 
-void Enemy :: die(){
+void Enemy::die(){
     life--;
     if(life==0)
         state=DEAD;
 }
 
-void Enemy :: killPlayer(){
+void Enemy::killPlayer(){
     if(collide(player) && player->state!=DEAD && state!=DEAD){
         player->die();
         //letreborn(); deixar espaço pro player renascer
