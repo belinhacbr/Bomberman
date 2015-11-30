@@ -105,17 +105,15 @@ void menu(){
         switch(menuoption){
             case 0:
                 sy=190;
-                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
                 break;
             case 1:
                 sy=255;
-                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
                 break;
             case 2:
                 sy=320;
-                displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
                 break;
         }
+        displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
         SDL_Flip(screen);
         }
     }
