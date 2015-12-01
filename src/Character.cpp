@@ -105,7 +105,7 @@ void Player::handleControl (list<int> &pressing) {
 
 
 void Player::die(){
-    if(imuneTime==0){
+    if(state != WIN && imuneTime==0){
         state=DEAD;
         imuneTime = IMUNE_TIME;
         deadTime = DEAD_TIME;
