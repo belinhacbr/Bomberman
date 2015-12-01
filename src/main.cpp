@@ -68,11 +68,11 @@ void menu(){
     menuoption=0;
     int sx,sy;
     sx=80;
-    sy=115;
+    sy=190;
     color = {0, 0, 0};
+    int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     bool choose = false;
-    while(!choose){
-        if(!close){
+    while(!choose && !close){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(menuImage,0,0);
         drawText("Aperte B para selecionar", screen, 80, 390,color);
@@ -81,15 +81,22 @@ void menu(){
                 case SDL_KEYDOWN:
                     switch(event.key.keysym.sym){
                         case SDLK_UP:
-                            if(menuoption>0)
-                                menuoption=(menuoption-1)%3;
-                             break;
+                            sy = sy - 65;
+                            if(sy<190) sy = 320;  
+                            break;
                         case SDLK_DOWN:
-                            menuoption=(menuoption+1)%3;
+                            sy = sy + 65;
+                            if(sy>320) sy = 190;
                             break;
                         case SDLK_b:
                             choose=true;
-                             break;
+                            if(sy==320)
+                                menuoption = 2;
+                            else if(sy==255)
+                                menuoption = 1;
+                            else 
+                                menuoption = 0;
+                            break;
                         default:
                             break;
                     }
@@ -100,22 +107,8 @@ void menu(){
             close=true;
             choose=true;
         }
-
-        int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
-        switch(menuoption){
-            case 0:
-                sy=190;
-                break;
-            case 1:
-                sy=255;
-                break;
-            case 2:
-                sy=320;
-                break;
-        }
         displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
         SDL_Flip(screen);
-        }
     }
 }
 
@@ -125,17 +118,14 @@ void game(){
     enemy = new Enemy(9, 0, 1, 0, 0, ENEMY_SPRITE_SIZE);
     enemy2 = new Enemy(7, 6, 2, 0, ENEMY_SPRITE_SIZE, ENEMY_SPRITE_SIZE);
     enemy3 = new Enemy(5, 10, 3, 0, ENEMY_SPRITE_SIZE*2, ENEMY_SPRITE_SIZE);
-
     while(!close) {
         while(SDL_PollEvent(&event)) {
             switch(event.type){
                 case SDL_KEYDOWN:
-                    if(event.key.keysym.sym == SDLK_ESCAPE) {
+                    if(event.key.keysym.sym == SDLK_ESCAPE) 
                         gamePaused();
-                    }
-                    else {
+                    else 
                         pressing.push_back(event.key.keysym.sym);
-                    }
                     //inserir na lista event.key.keysym.sym
                     break;
                 case SDL_KEYUP:
@@ -236,16 +226,17 @@ void options(){
                     case SDL_KEYDOWN:
                         switch(event.key.keysym.sym){
                             case SDLK_UP:
-                                    enabledsound = 1;
-                                    sy=190;
-                                 break;
+                                sy=sy-65;
+                                if(sy<190) sy=255;
+                                break;
                             case SDLK_DOWN:
-                                    enabledsound = 0;
-                                    sy=255;
+                                sy=(sy+65);
+                                if(sy>255) sy=190;
                                 break;
                             case SDLK_b:
+                                enabledsound = (sy == 255);
                                 choose=true;
-                                 break;
+                                break;
                             default:
                                 break;
                         }
@@ -278,7 +269,7 @@ void about(){
                     switch(event.key.keysym.sym){
                         case SDLK_b:
                             done=true;
-                             break;
+                            break;
                         default:
                             break;
                     }
