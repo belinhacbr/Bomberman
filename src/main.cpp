@@ -7,8 +7,9 @@
 
 using namespace std;
 
-void menu();
 void game();
+void menu();
+void play();
 int text(void *);
 void options();
 void about();
@@ -36,33 +37,35 @@ int main (int argc, char *argv[]){
 #endif
     SDL_startup();
     loadImages();
-
-    while(!close){
-        while(SDL_PollEvent(&event)) {
-            menu();
-            if(!close){
-                switch(menuoption){
-                    case 0:
-                        if(enabledsound)
-                           playSound("data/jingle_bells.wav", true, SDL_MIX_MAXVOLUME);
-                        game();
-                        break;
-                    case 1:
-                        options();
-                        break;
-                    case 2:
-                        about();
-                        break;
-                }
-            }
-        }
-    }
+    game();
     releaseImages();
     SDL_CloseAudio();
     TTF_Quit();
     SDL_Quit(); //it finishes SDL initialisations
     return 0;
 }
+
+void game(){
+    while(!close){
+        menu();
+        if(!close){
+            switch(menuoption){
+                case 0:
+                    if(enabledsound)
+                       playSound("data/jingle_bells.wav", true, SDL_MIX_MAXVOLUME);
+                    play();
+                    break;
+                case 1:
+                    options();
+                    break;
+                case 2:
+                    about();
+                    break;
+            }
+        }
+    }
+}
+
 
 void menu(){
     menuoption=0;
@@ -100,19 +103,19 @@ void menu(){
                         default:
                             break;
                     }
-                break;
+                    break;
+                case SDL_QUIT:
+                    close=true;
+                    choose=true;
+                    break;
             }
-        }
-        if (event.type == SDL_QUIT) {
-            close=true;
-            choose=true;
         }
         displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
         SDL_Flip(screen);
     }
 }
 
-void game(){
+void play(){
     map.loadMap("src/map.txt");
     player = new Player(0, 0, 0, PLAYER_SPRITE_SIZE, PLAYER_SPRITE_SIZE);
     enemy = new Enemy(9, 0, 1, 0, 0, ENEMY_SPRITE_SIZE);
@@ -132,9 +135,9 @@ void game(){
                     pressing.remove(event.key.keysym.sym);
                     //remover da lista event.key.keysym.sym
                     break;
-            }
-            if (event.type == SDL_QUIT) {
-                close=true;
+                case SDL_QUIT:
+                    close = true;
+                    break;
             }
         }
         player->handleControl(pressing);
@@ -216,40 +219,38 @@ void options(){
     int colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
     bool choose = false;
     SDL_Surface *optionsImage = IMG_Load("data/options.png");
-    while(!choose){
-        if(!close){
-            SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
-            displayImage(optionsImage,0,0);
-            drawText("Aperte B para selecionar", screen, 180, 390,color);
-            while(SDL_PollEvent(&event)){
-                switch(event.type){
-                    case SDL_KEYDOWN:
-                        switch(event.key.keysym.sym){
-                            case SDLK_UP:
-                                sy=sy-65;
-                                if(sy<190) sy=255;
-                                break;
-                            case SDLK_DOWN:
-                                sy=(sy+65);
-                                if(sy>255) sy=190;
-                                break;
-                            case SDLK_b:
-                                enabledsound = (sy == 255);
-                                choose=true;
-                                break;
-                            default:
-                                break;
-                        }
+    while(!choose && !close){
+        SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
+        displayImage(optionsImage,0,0);
+        drawText("Aperte B para selecionar", screen, 180, 390,color);
+        while(SDL_PollEvent(&event)){
+            switch(event.type){
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym){
+                        case SDLK_UP:
+                            sy=sy-65;
+                            if(sy<190) sy=255;
+                            break;
+                        case SDLK_DOWN:
+                            sy=(sy+65);
+                            if(sy>255) sy=190;
+                            break;
+                        case SDLK_b:
+                            enabledsound = (sy == 255);
+                            choose=true;
+                            break;
+                        default:
+                            break;
+                    }
                     break;
-                }
+                case SDL_QUIT:
+                    close=true;
+                    choose=true;
+                    break;
             }
-            if (event.type == SDL_QUIT) {
-                close=true;
-                choose=true;
-            }
-            displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
-            SDL_Flip(screen);
         }
+        displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
+        SDL_Flip(screen);
     }
     SDL_FreeSurface(optionsImage);
 }
@@ -273,11 +274,11 @@ void about(){
                         default:
                             break;
                     }
-                break;
-            }
-            if (event.type == SDL_QUIT) {
-                done=true;
-                close=true;
+                    break;
+                case SDL_QUIT:
+                    done=true;
+                    close=true;
+                    break;
             }
         }
     }
@@ -300,11 +301,11 @@ void gamePaused(){
                             default:
                                 break;
                         }
-                    break;
-                }
-                if (event.type == SDL_QUIT) {
-                    choose=true;
-                    close=true;
+                        break;
+                    case SDL_QUIT:
+                        choose=true;
+                        close=true;
+                        break;
                 }
             }
             SDL_Flip(screen);
