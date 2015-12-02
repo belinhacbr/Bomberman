@@ -7,6 +7,7 @@ SDL_Color color;
 
 SDL_Surface *menuImage;
 SDL_Surface *mapImage;
+SDL_Surface *icon;
 
 SDL_Surface *item_sprite;
 SDL_Surface *enemy_sprite;

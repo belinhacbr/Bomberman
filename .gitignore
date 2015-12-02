@@ -1,19 +1,18 @@
-*~
-Bomberman_x86_win.exe
-Bomberman_unix
+*
+!LICENSE
+!README.md
+!Makefile
 
-/obj
-/bin
+/*
 
-/src/*
 !/src/*.cpp
 !/src/*.h
 !/src/*.txt
 
-/data/*.png
-/data/*.xcf
-/data/old_sprites
 !/data/about.png
 !/data/bg.png
 !/data/bgmenu.png
 !/data/options.png
+!/data/*.bmp
+!/data/*.ttf
+!/data/*.wav

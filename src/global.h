@@ -46,6 +46,7 @@ extern SDL_Event event;
 
 extern SDL_Surface *menuImage;
 extern SDL_Surface *mapImage;
+extern SDL_Surface *icon;
 
 extern SDL_Surface *item_sprite;
 extern SDL_Surface *enemy_sprite;

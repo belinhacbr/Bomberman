@@ -110,7 +110,8 @@ void menu(){
                     break;
             }
         }
-        displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
+        displayImage(icon, sx, sy);
+        //displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
         SDL_Flip(screen);
     }
 }
@@ -249,6 +250,7 @@ void options(){
                     break;
             }
         }
+        displayImage(icon, sx, sy);
         displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
         SDL_Flip(screen);
     }
@@ -331,7 +333,6 @@ void SDL_startup()
         exit(1);
     }
     SDL_WM_SetCaption("Bomberman", "Bomberman"); //topTitle, iconTitle
-    SDL_Surface* icon = IMG_Load("data/icon.png");
     SDL_WM_SetIcon(icon, NULL);
     if(TTF_Init() == -1) {
         printf("Unable to set font : %s\n", SDL_GetError());
@@ -362,6 +363,7 @@ void loadImages()
 
     menuImage =IMG_Load("data/bgmenu.png");
     mapImage = IMG_Load("data/bg.png");
+    icon = IMG_Load("data/icon.png");
 
     temp  = SDL_LoadBMP("data/enemies_sprite.bmp");
     enemy_sprite = SDL_DisplayFormat(temp);
