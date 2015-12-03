@@ -5,10 +5,12 @@
 
 /*
 
+!/src
 !/src/*.cpp
 !/src/*.h
 !/src/*.txt
 
+!/data
 !/data/about.png
 !/data/bg.png
 !/data/bgmenu.png
