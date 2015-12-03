@@ -21,7 +21,6 @@ struct audioSample sounds[NUM_SOUNDS];
 bool repeatAudio;
 int audioVol;
 
-
 SDL_Thread *threadplayer;
 SDL_Thread *threadenemy1;
 SDL_Thread *threadenemy2;

@@ -27,7 +27,6 @@
 
 using namespace std;
 
-
 extern SDL_Thread *threadplayer;
 extern SDL_Thread *threadenemy1;
 extern SDL_Thread *threadenemy2;
