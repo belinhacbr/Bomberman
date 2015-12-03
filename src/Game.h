@@ -10,12 +10,18 @@ using namespace std;
 class Game {
     private:
         void startGame();
-        void showMenu();
         void play();
         int showOnGameText(void *);
+
+        void showMenu();
+        void handleMenuControl(int&, int&, bool&, bool&);
         void showOptions();
+        void handleOptionsControl(int&, int&, bool&, bool&);
         void showAbout();
+        void handleAboutControl(bool&, bool&);
         void pauseGame();
+        void handlePauseGameControl(bool&, bool&);
+
         void loadImages();
         void releaseImages();
 

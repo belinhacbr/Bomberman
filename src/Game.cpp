@@ -53,42 +53,45 @@ void Game::showMenu(){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(menuImage,0,0);
         drawText("Aperte B para selecionar", screen, 80, 390,color);
-        while(SDL_PollEvent(&event)){
-            switch(event.type){
-                case SDL_KEYDOWN:
-                    switch(event.key.keysym.sym){
-                        case SDLK_UP:
-                            sy = sy - 65;
-                            if(sy<190) sy = 320;  
-                            break;
-                        case SDLK_DOWN:
-                            sy = sy + 65;
-                            if(sy>320) sy = 190;
-                            break;
-                        case SDLK_b:
-                            choose=true;
-                            if(sy==320)
-                                menuoption = 2;
-                            else if(sy==255)
-                                menuoption = 1;
-                            else 
-                                menuoption = 0;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case SDL_QUIT:
-                    close=true;
-                    choose=true;
-                    break;
-            }
-        }
+        handleMenuControl(sx, sy, close, choose);
         displayImage(icon, sx, sy);
         SDL_Flip(screen);
     }
 }
 
+void Game::handleMenuControl(int& sx, int& sy, bool& close, bool&choose){
+    while(SDL_PollEvent(&event)){
+        switch(event.type){
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym){
+                    case SDLK_UP:
+                        sy = sy - 65;
+                        if(sy<190) sy = 320;  
+                        break;
+                    case SDLK_DOWN:
+                        sy = sy + 65;
+                        if(sy>320) sy = 190;
+                        break;
+                    case SDLK_b:
+                        choose=true;
+                        if(sy==320)
+                            menuoption = 2;
+                        else if(sy==255)
+                            menuoption = 1;
+                        else 
+                            menuoption = 0;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case SDL_QUIT:
+                close=true;
+                choose=true;
+                break;
+        }
+    }
+}
 
 void Game::play(){
     map.loadMap("src/map.txt");
@@ -199,38 +202,43 @@ void Game::showOptions(){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(optionsImage,0,0);
         drawText("Aperte B para selecionar", screen, 180, 390,color);
-        while(SDL_PollEvent(&event)){
-            switch(event.type){
-                case SDL_KEYDOWN:
-                    switch(event.key.keysym.sym){
-                        case SDLK_UP:
-                            sy=sy-65;
-                            if(sy<190) sy=255;
-                            break;
-                        case SDLK_DOWN:
-                            sy=(sy+65);
-                            if(sy>255) sy=190;
-                            break;
-                        case SDLK_b:
-                            enabledsound = (sy == 255);
-                            choose=true;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case SDL_QUIT:
-                    close=true;
-                    choose=true;
-                    break;
-            }
-        }
+        handleOptionsControl(sx, sy, close, choose);
         displayImage(icon, sx, sy);
         displaySpriteImage(item_sprite, sx,sy, GRID_SIZE, 3*GRID_SIZE, GRID_SIZE, colorkey);
         SDL_Flip(screen);
     }
     SDL_FreeSurface(optionsImage);
 }
+
+void Game::handleOptionsControl(int& sx, int& sy, bool& close, bool& choose){
+    while(SDL_PollEvent(&event)){
+        switch(event.type){
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym){
+                    case SDLK_UP:
+                        sy=sy-65;
+                        if(sy<190) sy=255;
+                        break;
+                    case SDLK_DOWN:
+                        sy=(sy+65);
+                        if(sy>255) sy=190;
+                        break;
+                    case SDLK_b:
+                        enabledsound = (sy == 255);
+                        choose=true;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case SDL_QUIT:
+                close=true;
+                choose=true;
+                break;
+        }
+    }
+}
+
 
 void Game::showAbout(){
     bool done=false;
@@ -240,55 +248,61 @@ void Game::showAbout(){
         SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
         displayImage(aboutImage,0,0);
         drawText("Aperte B para voltar ao menu", screen, 180, 390,color);
+        handleAboutControl(close, done);
         SDL_Flip(screen);
-        while(SDL_PollEvent(&event)){
-            switch(event.type){
-                case SDL_KEYDOWN:
-                    switch(event.key.keysym.sym){
-                        case SDLK_b:
-                            done=true;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case SDL_QUIT:
-                    done=true;
-                    close=true;
-                    break;
-            }
-        }
     }
     SDL_FreeSurface(aboutImage);
+}
+
+void Game::handleAboutControl(bool& close, bool& done){
+     while(SDL_PollEvent(&event)){
+        switch(event.type){
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym){
+                    case SDLK_b:
+                        done=true;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case SDL_QUIT:
+                done=true;
+                close=true;
+                break;
+        }
+    }
 }
 
 void Game::pauseGame(){
     color={255,255,255};
     bool choose=false;
     drawText("GAME PAUSED", screen, 200, 10,color);
-    while(!choose){
-        if(!close){
-            while(SDL_PollEvent(&event)){
-                switch(event.type){
-                    case SDL_KEYDOWN:
-                        switch(event.key.keysym.sym){
-                            case SDLK_ESCAPE:
-                                choose=true;
-                                 break;
-                            default:
-                                break;
-                        }
-                        break;
-                    case SDL_QUIT:
+    while(!choose && !close){
+        handlePauseGameControl(choose, close);
+        SDL_Flip(screen);
+    }
+}
+
+
+void Game::handlePauseGameControl(bool& choose, bool& close){
+    while(SDL_PollEvent(&event)){
+        switch(event.type){
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym){
+                    case SDLK_ESCAPE:
                         choose=true;
-                        close=true;
+                         break;
+                    default:
                         break;
                 }
-            }
-            SDL_Flip(screen);
+                break;
+            case SDL_QUIT:
+                choose=true;
+                close=true;
+                break;
         }
     }
-
 }
 
 void Game::SDL_startup()
