@@ -8,12 +8,15 @@ This project was developed in 2011 during my undergrad. Many things have changed
 
 
 ### Dependencies
-* g++ 
-* libsdl 1.2
+```
+g++ 
+libsdl 1.2
+```
 
 ### Build and run
-* $ make
-* $ make run
-
+```
+$ make
+$ make run
+```
 
 
