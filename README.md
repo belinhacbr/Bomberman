@@ -21,6 +21,8 @@ $ make run
 
 #### To-do
 - Refactor 'global.h'
+- Fix text bug
+- Fix sound bug
 - AI for enemies
 
 
