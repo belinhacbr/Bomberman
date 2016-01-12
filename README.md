@@ -19,7 +19,7 @@ $ make
 $ make run
 ```
 
-#### TO-DO
+##### To-do
 - Refactor 'global.h'
 - AI for enemies
 
